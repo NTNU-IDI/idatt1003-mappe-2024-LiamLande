@@ -1,4 +1,4 @@
-package liamlande;
+package edu;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

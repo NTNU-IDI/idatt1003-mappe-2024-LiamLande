@@ -1,4 +1,4 @@
-package liamlande;
+package edu.ntnu.iir.bidata;
 
 /**
  * Hello world!
