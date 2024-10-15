@@ -1,13 +1,13 @@
 package edu.ntnu.iir.bidata;
-
-/**
- * Hello world!
- *
- */
+import edu.ntnu.iir.bidata.TUI.TUI;
+import edu.ntnu.iir.bidata.entities.*;
 public class App 
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+        TUI TUI = new TUI();
+        TUI.init();
+        TUI.start();
+        
     }
 }
