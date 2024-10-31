@@ -3,10 +3,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
+import edu.ntnu.iir.bidata.entities.Pair;
 import junit.framework.TestCase;
 import edu.ntnu.iir.bidata.FoodStorage;
 import edu.ntnu.iir.bidata.TUI.TUI;
-
+import edu.ntnu.iir.bidata.Cookbook;
 
 public class AppTest extends TestCase {
 
@@ -32,7 +33,9 @@ public class AppTest extends TestCase {
 
     public void testAppInitialization() {
         TUI tui = new TUI();
-        FoodStorage mainStorage = tui.init();
+        Pair a = tui.init();
+        FoodStorage mainStorage = (FoodStorage) a.getFirst();
+        Cookbook mainCookbook = (Cookbook) a.getSecond();
         assertNotNull(mainStorage);
     }
 
@@ -42,8 +45,10 @@ public class AppTest extends TestCase {
         Scanner scanner = new Scanner(inContent);
 
         TUI tui = new TUI(scanner);
-        FoodStorage mainStorage = tui.init();
-        tui.start(mainStorage);
+        Pair a = tui.init();
+        FoodStorage mainStorage = (FoodStorage) a.getFirst();
+        Cookbook mainCookbook = (Cookbook) a.getSecond();
+        tui.start(mainStorage, mainCookbook);
 
         String expectedMenu = "1. Food storage management\r\n2. Recipes, and other extra features\r\n3. Exit";
 

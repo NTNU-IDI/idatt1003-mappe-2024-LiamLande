@@ -1,10 +1,13 @@
 package edu.ntnu.iir.bidata.TUI;
 
 import java.util.*;
-
 import java.text.*;
 
+import edu.ntnu.iir.bidata.Cookbook;
 import edu.ntnu.iir.bidata.FoodStorage;
+import edu.ntnu.iir.bidata.entities.Ingredient;
+import edu.ntnu.iir.bidata.entities.Pair;
+import edu.ntnu.iir.bidata.entities.Recipe;
 
 
 public class TUI {
@@ -64,7 +67,7 @@ public class TUI {
         S = scanner;
     }
 
-    public FoodStorage init() {
+    public Pair init() {
         System.out.println("\n" +
                 "  ______                 _   _____  _                                  \n" +
                 " |  ____|               | | / ____|| |                                 \n" +
@@ -76,29 +79,37 @@ public class TUI {
                 "                                                           |___/       \n");
         System.out.println("Welcome to the food storage system");
         System.out.println("... Initialising variables ...");
+        System.out.println("Do you want to load test data?");
+        Pair A = new Pair(new FoodStorage(this), new Cookbook(this));
+        if (this.readBoolean()) {
+            System.out.println("Loading test data");
+            this.testDataLoader(A);
+        } else {
+            System.out.println("No test data loaded");
+        }
 
-        return new FoodStorage(this);
+        return A;
 
     }
 
-    public void start(FoodStorage MainStorage) {
+    public void start(FoodStorage MainStorage, Cookbook MainCookbook) {
         System.out.println("1. Food storage management");
         System.out.println("2. Recipes, and other extra features");
         System.out.println("3. Exit");
         int choice = this.readInt("(1,2,3)", 4);
         switch (choice) {
             case 1:
-                this.foodStorageMenu(MainStorage);
+                this.foodStorageMenu(MainStorage, MainCookbook);
                 break;
             case 2:
-                this.secondMenu();
+                this.secondMenu(MainStorage, MainCookbook);
                 break;
             default:
                 break;
         }
     }
 
-    public void foodStorageMenu(FoodStorage mainStorage) {
+    public void foodStorageMenu(FoodStorage mainStorage, Cookbook mainCookbook) {
         boolean on = true;
         System.out.println("Welcome to the FoodStorage Menu");
         while (on) {
@@ -136,14 +147,64 @@ public class TUI {
                     break;
             }
         }
-        this.start(mainStorage);
+        this.start(mainStorage, null);
     }
 
-    private void secondMenu() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'secondMenu'");
+    private void secondMenu(FoodStorage MainStorage, Cookbook MainCookbook) {
+        System.out.println("Welcome to the second menu");
+        System.out.println("1. Add recipe");
+        System.out.println("2. Remove recipe");
+        System.out.println("3. Find recipe");
+        System.out.println("4. Print all recipes");
+        System.out.println("5. Back to main menu");
+        int choice = this.readInt("(1,2,3,4,5)", 6);
+        switch (choice) {
+            case 1:
+                System.out.println("Add recipe");
+                break;
+            case 2:
+                System.out.println("Remove recipe");
+                break;
+            case 3:
+                System.out.println("Find recipe");
+                break;
+            case 4:
+                System.out.println("Print all recipes");
+                break;
+            case 5:
+                this.start(MainStorage, MainCookbook);
+                break;
+            default:
+                break;
+        }
     }
 
+    public void testDataLoader(Pair A) {
+        FoodStorage food = (FoodStorage) A.getFirst();
+        Cookbook cookbook = (Cookbook) A.getSecond();
+        food.addIngredient(new Ingredient("Tomato", 10, 5, new Date()));
+        food.addIngredient(new Ingredient("Potato", 20, 2, new Date()));
+        food.addIngredient(new Ingredient("Onion", 30, 9, new Date()));
+        food.addIngredient(new Ingredient("Garlic", 40, 10, new Date()));
+        food.addIngredient(new Ingredient("Carrot", 50, 18, new Date()));
+        food.addIngredient(new Ingredient("Cucumber", 60, 5, new Date()));
+        food.addIngredient(new Ingredient("Pepper", 70, 100, new Date()));
+        food.addIngredient(new Ingredient("Salt", 80, 100, new Date()));
+
+        cookbook.addRecipe(new Recipe("Tomato soup", "Tomato, water, salt", "Cook tomato in water, add salt"));
+        cookbook.getRecipe("Tomato soup").addIngredient("Tomato", 4);
+        cookbook.getRecipe("Tomato soup").addIngredient("Salt", 2);
+        cookbook.getRecipe("Tomato soup").addIngredient("Garlic", 1);
+        cookbook.addRecipe(new Recipe("Potato soup", "Potato, water, salt", "Cook potato in water, add salt"));
+        cookbook.getRecipe("Potato soup").addIngredient("Potato", 4);
+        cookbook.getRecipe("Potato soup").addIngredient("Salt", 2);
+        cookbook.getRecipe("Potato soup").addIngredient("Garlic", 1);
+        cookbook.addRecipe(new Recipe("Onion soup", "Onion, water, salt", "Cook onion in water, add salt"));
+        cookbook.getRecipe("Onion soup").addIngredient("Onion", 4);
+        cookbook.getRecipe("Onion soup").addIngredient("Salt", 2);
+        cookbook.getRecipe("Onion soup").addIngredient("Garlic", 1);
+
+    }
 
     public void setInput(String s) {
         S = new Scanner(s);

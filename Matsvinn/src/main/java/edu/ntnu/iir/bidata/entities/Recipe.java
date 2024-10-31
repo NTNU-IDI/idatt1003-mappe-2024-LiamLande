@@ -18,7 +18,7 @@ public class Recipe {
     }
 
     public Recipe() {
-
+        //TODO: Implement
     }
 
     public String getDescription() {
@@ -37,5 +37,12 @@ public class Recipe {
         Ingredients.put(name, amount);
     }
 
-
+    @Override
+    public String toString() {
+        return "Name='" + Name + '\'' +
+                ", Description='" + Description + '\'' +
+                ", Instructions='" + Instructions + '\'' +
+                ", Ingredients=" + Ingredients +
+                "\n------------------------------------";
+    }
 }
