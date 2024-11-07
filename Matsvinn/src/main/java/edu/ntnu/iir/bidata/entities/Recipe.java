@@ -37,6 +37,10 @@ public class Recipe {
         Ingredients.put(name, amount);
     }
 
+    public HashMap<String, Integer> getIngredients() {
+        return Ingredients;
+    }
+
     @Override
     public String toString() {
         return "Name='" + Name + '\'' +

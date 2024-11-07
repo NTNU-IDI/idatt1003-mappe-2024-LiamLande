@@ -147,7 +147,7 @@ public class TUI {
                     break;
             }
         }
-        this.start(mainStorage, null);
+        this.start(mainStorage, mainCookbook);
     }
 
     private void secondMenu(FoodStorage MainStorage, Cookbook MainCookbook) {

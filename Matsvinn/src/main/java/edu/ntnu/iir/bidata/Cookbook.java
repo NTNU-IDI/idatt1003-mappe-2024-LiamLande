@@ -72,5 +72,15 @@ public class Cookbook {
         Recipes.remove(recipe);
     }
 
-
+    public void printAvailableRecipes(FoodStorage food) {
+        for (Recipe recipe : Recipes) {
+            for (String ingredient : recipe.getIngredients().keySet()) {
+                if (food.findIngredient(ingredient)) {
+                    System.out.println(recipe.toString());
+                    break;
+                }
+            }
+        }
+    }
+    
 }
