@@ -3,8 +3,8 @@ package edu.ntnu.iir.bidata.TUI;
 import java.util.*;
 import java.text.*;
 
-import edu.ntnu.iir.bidata.Cookbook;
-import edu.ntnu.iir.bidata.FoodStorage;
+import edu.ntnu.iir.bidata.registers.Cookbook;
+import edu.ntnu.iir.bidata.registers.FoodStorage;
 import edu.ntnu.iir.bidata.entities.Ingredient;
 import edu.ntnu.iir.bidata.entities.Pair;
 import edu.ntnu.iir.bidata.entities.Recipe;

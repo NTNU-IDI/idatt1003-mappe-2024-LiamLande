@@ -1,9 +1,7 @@
 import edu.ntnu.iir.bidata.entities.Ingredient;
 import edu.ntnu.iir.bidata.TUI.TUI;
 import junit.framework.TestCase;
-import edu.ntnu.iir.bidata.FoodStorage;
-import edu.ntnu.iir.bidata.entities.Ingredient;
-import edu.ntnu.iir.bidata.TUI.TUI;
+import edu.ntnu.iir.bidata.registers.FoodStorage;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;

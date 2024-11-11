@@ -1,4 +1,4 @@
-package edu.ntnu.iir.bidata;
+package edu.ntnu.iir.bidata.registers;
 
 import edu.ntnu.iir.bidata.TUI.TUI;
 import edu.ntnu.iir.bidata.entities.Recipe;
@@ -82,5 +82,5 @@ public class Cookbook {
             }
         }
     }
-    
+
 }

@@ -5,9 +5,9 @@ import java.util.Scanner;
 
 import edu.ntnu.iir.bidata.entities.Pair;
 import junit.framework.TestCase;
-import edu.ntnu.iir.bidata.FoodStorage;
+import edu.ntnu.iir.bidata.registers.FoodStorage;
 import edu.ntnu.iir.bidata.TUI.TUI;
-import edu.ntnu.iir.bidata.Cookbook;
+import edu.ntnu.iir.bidata.registers.Cookbook;
 
 public class AppTest extends TestCase {
 
