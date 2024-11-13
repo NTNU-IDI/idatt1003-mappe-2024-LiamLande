@@ -3,6 +3,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
+import edu.ntnu.iir.bidata.TUI.TUIView;
 import edu.ntnu.iir.bidata.entities.Pair;
 import junit.framework.TestCase;
 import edu.ntnu.iir.bidata.registers.FoodStorage;
@@ -32,11 +33,14 @@ public class AppTest extends TestCase {
     }
 
     public void testAppInitialization() {
-        TUIController controller = new TUIController();
+        TUIView view = new TUIView();
+        Scanner scanner = new Scanner(System.in);
+        TUIController controller = new TUIController(scanner, view);
         Pair a = controller.init();
         FoodStorage mainStorage = (FoodStorage) a.getFirst();
         Cookbook mainCookbook = (Cookbook) a.getSecond();
         assertNotNull(mainStorage);
+        assertNotNull(mainCookbook);
     }
 
     public void testAppStart() {

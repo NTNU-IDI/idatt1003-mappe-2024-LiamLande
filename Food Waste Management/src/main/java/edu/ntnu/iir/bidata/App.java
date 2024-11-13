@@ -12,7 +12,7 @@ public class App {
     public static void main(String[] args) {
         TUIView view = new TUIView();
         Scanner scanner = new Scanner(System.in);
-        TUIController Controller = new TUIController();
+        TUIController Controller = new TUIController(scanner, view);
         Pair a = Controller.init();
         Controller.start((FoodStorage) a.getFirst(), (Cookbook) a.getSecond());
     }

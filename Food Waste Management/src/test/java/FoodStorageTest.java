@@ -1,3 +1,4 @@
+import edu.ntnu.iir.bidata.TUI.TUIView;
 import edu.ntnu.iir.bidata.entities.Ingredient;
 import edu.ntnu.iir.bidata.TUI.TUIController;
 import junit.framework.TestCase;
@@ -6,6 +7,7 @@ import edu.ntnu.iir.bidata.registers.FoodStorage;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Date;
+import java.util.Scanner;
 
 public class FoodStorageTest extends TestCase {
 
@@ -13,6 +15,8 @@ public class FoodStorageTest extends TestCase {
     private FoodStorage foodStorage;
     private final PrintStream originalOut = System.out;
     private ByteArrayOutputStream outContent;
+    private Scanner scanner;
+    private TUIView view;
 
     public FoodStorageTest(String testName) {
         super(testName);
@@ -21,7 +25,9 @@ public class FoodStorageTest extends TestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        controller = new TUIController();
+        scanner = new Scanner(System.in);
+        view = new TUIView();
+        controller = new TUIController(scanner, view);
         foodStorage = new FoodStorage(controller);
         outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
@@ -78,7 +84,7 @@ public class FoodStorageTest extends TestCase {
         foodStorage.addIngredient(ingredient1);
         foodStorage.addIngredient(ingredient2);
         foodStorage.printIngredients();
-        String expectedOutput = "Ingredients:\r\n" + ingredient1.toString() + "\r\n" + ingredient2.toString() + "\r\n" + "Total value of ingredients: " + (ingredient1.getPpu() * ingredient1.getAmount() + ingredient2.getPpu() * ingredient2.getAmount()) + "\r\n";
+        String expectedOutput = "Ingredients:\r\n" + ingredient1 + "\r\n" + ingredient2 + "\r\n" + "Total value of ingredients: " + (ingredient1.getPpu() * ingredient1.getAmount() + ingredient2.getPpu() * ingredient2.getAmount()) + "\r\n";
         assertEquals(expectedOutput, outContent.toString());
     }
 
@@ -87,7 +93,7 @@ public class FoodStorageTest extends TestCase {
         Ingredient expiredIngredient = new Ingredient("Expired", 10, 5, pastDate);
         foodStorage.addIngredient(expiredIngredient);
         foodStorage.printExpiredIngredients();
-        String expectedOutput = expiredIngredient.toString() + "\r\n" + "Total value of expired ingredients: " + expiredIngredient.getPrice() + "\r\n";
+        String expectedOutput = expiredIngredient + "\r\n" + "Total value of expired ingredients: " + expiredIngredient.getPrice() + "\r\n";
         assertEquals(expectedOutput, outContent.toString());
     }
 

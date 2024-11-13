@@ -76,7 +76,7 @@ public class Cookbook {
         for (Recipe recipe : Recipes) {
             for (String ingredient : recipe.getIngredients().keySet()) {
                 if (food.findIngredient(ingredient)) {
-                    System.out.println(recipe.toString());
+                    System.out.println(recipe);
                     break;
                 }
             }

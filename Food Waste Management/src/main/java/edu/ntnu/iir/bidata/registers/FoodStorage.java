@@ -8,7 +8,7 @@ import edu.ntnu.iir.bidata.TUI.TUIController;
 
 
 public class FoodStorage {
-    private ArrayList<Ingredient> ingredients;
+    private final ArrayList<Ingredient> ingredients;
     private final TUIController a;
 
     public FoodStorage(TUIController a) {
@@ -64,7 +64,7 @@ public class FoodStorage {
         }
         for (Ingredient ingredient : ingredients) {
             if (ingredient.getName().equals(name)) {
-                System.out.println(ingredient.toString());
+                System.out.println(ingredient);
                 return true;
             }
         }
@@ -101,7 +101,7 @@ public class FoodStorage {
         int total = 0;
         for (Ingredient ingredient : ingredients) {
             if (new Date().after(ingredient.getExpDate())) {
-                System.out.println(ingredient.toString());
+                System.out.println(ingredient);
                 total += ingredient.getPrice();
             }
         }

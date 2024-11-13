@@ -145,7 +145,8 @@ public class TUIController {
         int choice = this.readInt("(1,2,3,4,5)", 6);
         switch (choice) {
             case 1:
-                MainCookbook.addRecipe();
+                view.print("Add recipe");
+                //TODO: Implement add recipe
 
                 break;
             case 2:
