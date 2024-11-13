@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import edu.ntnu.iir.bidata.entities.Ingredient;
-import edu.ntnu.iir.bidata.TUI.TUI;
+import edu.ntnu.iir.bidata.TUI.TUIController;
 
 
 public class FoodStorage {
     private ArrayList<Ingredient> ingredients;
-    private final TUI a;
+    private final TUIController a;
 
-    public FoodStorage(TUI a) {
+    public FoodStorage(TUIController a) {
         ingredients = new ArrayList<Ingredient>();
         this.a = a;
     }

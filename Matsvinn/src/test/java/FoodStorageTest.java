@@ -1,5 +1,5 @@
 import edu.ntnu.iir.bidata.entities.Ingredient;
-import edu.ntnu.iir.bidata.TUI.TUI;
+import edu.ntnu.iir.bidata.TUI.TUIController;
 import junit.framework.TestCase;
 import edu.ntnu.iir.bidata.registers.FoodStorage;
 
@@ -9,7 +9,7 @@ import java.util.Date;
 
 public class FoodStorageTest extends TestCase {
 
-    private TUI tui;
+    private TUIController controller;
     private FoodStorage foodStorage;
     private final PrintStream originalOut = System.out;
     private ByteArrayOutputStream outContent;
@@ -21,8 +21,8 @@ public class FoodStorageTest extends TestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        tui = new TUI();
-        foodStorage = new FoodStorage(tui);
+        controller = new TUIController();
+        foodStorage = new FoodStorage(controller);
         outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
     }
@@ -67,7 +67,7 @@ public class FoodStorageTest extends TestCase {
     public void testRemoveIngredientAmount() {
         Ingredient ingredient = new Ingredient("Tomato", 10, 5, new Date());
         foodStorage.addIngredient(ingredient);
-        tui.setInput("Tomato\n2\nfalse\n");
+        controller.setInput("Tomato\n2\nfalse\n");
         foodStorage.removeIngredientAmount();
         assertEquals(3, ingredient.getAmount());
     }

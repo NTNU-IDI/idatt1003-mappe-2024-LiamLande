@@ -1,6 +1,6 @@
 package edu.ntnu.iir.bidata.registers;
 
-import edu.ntnu.iir.bidata.TUI.TUI;
+import edu.ntnu.iir.bidata.TUI.TUIController;
 import edu.ntnu.iir.bidata.entities.Recipe;
 
 import java.util.ArrayList;
@@ -9,9 +9,9 @@ public class Cookbook {
     private String Name;
     private String Description;
     private ArrayList<Recipe> Recipes;
-    private TUI a;
+    private TUIController a;
 
-    public Cookbook(TUI a) {
+    public Cookbook(TUIController a) {
         this.a = a;
         Recipes = new ArrayList<Recipe>();
     }

@@ -17,9 +17,6 @@ public class Recipe {
         Ingredients = new HashMap<String, Integer>();
     }
 
-    public Recipe() {
-        //TODO: Implement
-    }
 
     public String getDescription() {
         return Description;
