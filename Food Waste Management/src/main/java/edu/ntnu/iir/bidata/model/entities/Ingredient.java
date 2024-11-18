@@ -1,34 +1,32 @@
-package edu.ntnu.iir.bidata.entities;
+package edu.ntnu.iir.bidata.model.entities;
 
 import java.util.Date;
 
 // Ingredient class, used to store information about ingredients
 public class Ingredient {
-    private String name;
-    private int price;
-    private int ppu;
-    private int amount;
+    private final String name;
+    private double price;
+    private double ppu;
+    private double amount;
     private Date expDate;
+    private final String unit;
 
     // Constructor for Ingredient, takes name, price, amount and expiration date
-    public Ingredient(String name, int price, int amount, Date expDate) {
+    public Ingredient(String name, double price, double amount, Date expDate, String unit) {
         this.name = name;
-        if (price < 0) {
-            throw new IllegalArgumentException("Price cannot be negative");
-        }
         this.price = price;
-        if (amount < 0) {
-            throw new IllegalArgumentException("Amount cannot be negative");
-        }
-
         this.amount = amount;
-        
         this.expDate = expDate;
+        this.unit = unit;
         this.ppu = price / amount;
     }
 
+    public String getUnit() {
+        return unit;
+    }
+
     //Get methods
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 
@@ -36,11 +34,11 @@ public class Ingredient {
         return name;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public int getPpu() {
+    public double getPpu() {
         return ppu;
     }
 
@@ -49,33 +47,25 @@ public class Ingredient {
     }
 
     //set methods
-    public void setAmount(int amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-        this.ppu = price / amount;
     }
 
     public void setExpDate(Date expDate) {
         this.expDate = expDate;
     }
 
-    //toString method, easier for debugging
-    @Override
-    public String toString() {
-        return "Ingredient [amount=" + amount + ", name=" + name + ", price=" + price + ", expDate=" + expDate + "]";
+    public void setPrice(double price) {
+        this.price = price;
+        this.ppu = price / amount;
     }
 
+
     //addAmount method adding amount and updating PPU
-    public void addAmount(int amount) {
+    public void addAmount(double amount) {
         System.out.println("Adding " + amount + " to " + this.name);
         System.out.println("Presuming price is the same per unit (" + ppu + ")");
+
         this.amount += amount;
         this.price += amount * this.ppu;
     }

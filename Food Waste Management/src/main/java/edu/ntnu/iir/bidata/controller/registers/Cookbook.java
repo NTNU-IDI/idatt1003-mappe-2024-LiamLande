@@ -1,7 +1,7 @@
-package edu.ntnu.iir.bidata.registers;
+package edu.ntnu.iir.bidata.controller.registers;
 
-import edu.ntnu.iir.bidata.TUI.TUIController;
-import edu.ntnu.iir.bidata.entities.Recipe;
+import edu.ntnu.iir.bidata.model.entities.Recipe;
+import edu.ntnu.iir.bidata.view.PrintModel;
 
 import java.util.ArrayList;
 
@@ -9,30 +9,19 @@ public class Cookbook {
     private String Name;
     private String Description;
     private ArrayList<Recipe> Recipes;
-    private TUIController a;
+    private ArrayList<String> Authors;
 
-    public Cookbook(TUIController a) {
-        this.a = a;
-        Recipes = new ArrayList<Recipe>();
+    public boolean isInitialized() {
+        return Name != null && Description != null;
     }
 
-    public Cookbook(String name, String description) {
+    public void init(String name, String description, ArrayList<String> authors) {
         Name = name;
         Description = description;
-        Recipes = new ArrayList<Recipe>();
+        Authors = authors;
+        Recipes = new ArrayList<>();
     }
 
-    public void setDescription(String description) {
-        Description = description;
-    }
-
-    public void setName(String name) {
-        Name = name;
-    }
-
-    public void setRecipes(ArrayList<Recipe> recipes) {
-        Recipes = recipes;
-    }
 
     public String getDescription() {
         return Description;
@@ -44,6 +33,10 @@ public class Cookbook {
 
     public ArrayList<Recipe> getRecipes() {
         return Recipes;
+    }
+
+    public ArrayList<String> getAuthors() {
+        return Authors;
     }
 
     public Recipe getRecipe(String name) {
@@ -68,16 +61,13 @@ public class Cookbook {
         }
     }
 
-    public void removeRecipe(Recipe recipe) {
-        Recipes.remove(recipe);
-    }
 
     public void printAvailableRecipes(FoodStorage food) {
         for (Recipe recipe : Recipes) {
             for (String ingredient : recipe.getIngredients().keySet()) {
                 if (food.findIngredient(ingredient)) {
-                    System.out.println(recipe);
-                    break;
+                    PrintModel.print(recipe);
+                    return;
                 }
             }
         }

@@ -1,20 +1,19 @@
 package edu.ntnu.iir.bidata;
 
-import edu.ntnu.iir.bidata.TUI.TUIController;
-import edu.ntnu.iir.bidata.TUI.TUIView;
-import edu.ntnu.iir.bidata.entities.Pair;
-import edu.ntnu.iir.bidata.registers.Cookbook;
-import edu.ntnu.iir.bidata.registers.FoodStorage;
+import edu.ntnu.iir.bidata.controller.Initializer;
+import edu.ntnu.iir.bidata.controller.TUIController;
+import edu.ntnu.iir.bidata.controller.validator.InputValidator;
 
 import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
-        TUIView view = new TUIView();
+        TUIController Controller = new TUIController();
+        Initializer Initializer = new Initializer(Controller);
         Scanner scanner = new Scanner(System.in);
-        TUIController Controller = new TUIController(scanner, view);
-        Pair a = Controller.init();
-        Controller.start((FoodStorage) a.getFirst(), (Cookbook) a.getSecond());
+        new InputValidator(scanner, Controller);
+        Initializer.init();
+        Controller.start();
     }
 }
 //TODO: JAVADOC COMMENTS

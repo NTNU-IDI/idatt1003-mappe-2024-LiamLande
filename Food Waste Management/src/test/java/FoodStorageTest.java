@@ -1,8 +1,8 @@
-import edu.ntnu.iir.bidata.TUI.TUIView;
-import edu.ntnu.iir.bidata.entities.Ingredient;
-import edu.ntnu.iir.bidata.TUI.TUIController;
+import edu.ntnu.iir.bidata.view.PrintModel;
+import edu.ntnu.iir.bidata.model.entities.Ingredient;
+import edu.ntnu.iir.bidata.controller.TUIController;
 import junit.framework.TestCase;
-import edu.ntnu.iir.bidata.registers.FoodStorage;
+import edu.ntnu.iir.bidata.controller.registers.FoodStorage;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -16,7 +16,7 @@ public class FoodStorageTest extends TestCase {
     private final PrintStream originalOut = System.out;
     private ByteArrayOutputStream outContent;
     private Scanner scanner;
-    private TUIView view;
+    private PrintModel view;
 
     public FoodStorageTest(String testName) {
         super(testName);
@@ -25,10 +25,8 @@ public class FoodStorageTest extends TestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        scanner = new Scanner(System.in);
-        view = new TUIView();
-        controller = new TUIController(scanner, view);
-        foodStorage = new FoodStorage(controller);
+        controller = new TUIController();
+        foodStorage = new FoodStorage();
         outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
     }
@@ -41,14 +39,14 @@ public class FoodStorageTest extends TestCase {
 
 
     public void testAddIngredientWithLegalValues() {
-        Ingredient ingredient = new Ingredient("Tomato", 10, 5, new Date());
+        Ingredient ingredient = new Ingredient("Tomato", 10.0, 5, new Date(), "pcs");
         foodStorage.addIngredient(ingredient);
         assertTrue(foodStorage.findIngredient("Tomato"));
     }
 
     public void testAddIngredientWithIllegalValues() {
         try {
-            Ingredient ingredient = new Ingredient("", -10, -5, new Date());
+            Ingredient ingredient = new Ingredient("", -10, -5, new Date(), "a");
             foodStorage.addIngredient(ingredient);
             fail("Expected IllegalArgumentException for illegal values");
         } catch (IllegalArgumentException e) {
@@ -57,30 +55,29 @@ public class FoodStorageTest extends TestCase {
     }
 
     public void testRemoveIngredient() {
-        Ingredient ingredient = new Ingredient("Tomato", 10, 5, new Date());
+        Ingredient ingredient = new Ingredient("Tomato", 10, 5, new Date(), "pcs");
         foodStorage.addIngredient(ingredient);
         foodStorage.removeIngredient(ingredient.getName());
         assertFalse(foodStorage.findIngredient("Tomato"));
     }
 
     public void testFindIngredient() {
-        Ingredient ingredient = new Ingredient("Tomato", 10, 5, new Date());
+        Ingredient ingredient = new Ingredient("Tomato", 10, 5, new Date(), "pcs");
         foodStorage.addIngredient(ingredient);
         assertTrue(foodStorage.findIngredient("Tomato"));
         assertFalse(foodStorage.findIngredient("Potato"));
     }
 
     public void testRemoveIngredientAmount() {
-        Ingredient ingredient = new Ingredient("Tomato", 10, 5, new Date());
+        Ingredient ingredient = new Ingredient("Tomato", 10, 5, new Date(), "pcs");
         foodStorage.addIngredient(ingredient);
-        controller.setInput("Tomato\n2\nfalse\n");
-        foodStorage.removeIngredientAmount();
+        foodStorage.removeIngredientAmount(ingredient.getName(), 2, false);
         assertEquals(3, ingredient.getAmount());
     }
 
     public void testPrintIngredients() {
-        Ingredient ingredient1 = new Ingredient("Tomato", 10, 5, new Date());
-        Ingredient ingredient2 = new Ingredient("Potato", 20, 10, new Date());
+        Ingredient ingredient1 = new Ingredient("Tomato", 10, 5, new Date(), "pcs");
+        Ingredient ingredient2 = new Ingredient("Potato", 20, 10, new Date(), "pcs");
         foodStorage.addIngredient(ingredient1);
         foodStorage.addIngredient(ingredient2);
         foodStorage.printIngredients();
@@ -90,7 +87,7 @@ public class FoodStorageTest extends TestCase {
 
     public void testPrintExpiredIngredients() {
         Date pastDate = new Date(System.currentTimeMillis() - 100000);
-        Ingredient expiredIngredient = new Ingredient("Expired", 10, 5, pastDate);
+        Ingredient expiredIngredient = new Ingredient("Expired", 10, 5, pastDate, "pcs");
         foodStorage.addIngredient(expiredIngredient);
         foodStorage.printExpiredIngredients();
         String expectedOutput = expiredIngredient + "\r\n" + "Total value of expired ingredients: " + expiredIngredient.getPrice() + "\r\n";
@@ -98,8 +95,8 @@ public class FoodStorageTest extends TestCase {
     }
 
     public void testPrintTotalValue() {
-        Ingredient ingredient1 = new Ingredient("Tomato", 10, 5, new Date());
-        Ingredient ingredient2 = new Ingredient("Potato", 20, 10, new Date());
+        Ingredient ingredient1 = new Ingredient("Tomato", 10, 5, new Date(), "pcs");
+        Ingredient ingredient2 = new Ingredient("Potato", 20, 10, new Date(), "pcs");
         foodStorage.addIngredient(ingredient1);
         foodStorage.addIngredient(ingredient2);
         foodStorage.printTotalValue();

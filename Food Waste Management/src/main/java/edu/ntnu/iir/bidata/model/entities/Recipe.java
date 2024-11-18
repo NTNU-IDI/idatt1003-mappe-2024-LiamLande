@@ -1,8 +1,6 @@
-package edu.ntnu.iir.bidata.entities;
+package edu.ntnu.iir.bidata.model.entities;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class Recipe {
     String Name;
