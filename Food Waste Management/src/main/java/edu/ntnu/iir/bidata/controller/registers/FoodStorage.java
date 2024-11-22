@@ -50,7 +50,7 @@ public class FoodStorage {
      */
     public void removeIngredient(String name) {
         ingredients.stream()
-                .filter(ingredient -> ingredient.getName().equals(name))
+                .filter(ingredient -> ingredient.getName().equalsIgnoreCase(name))
                 .findFirst()
                 .ifPresentOrElse(ingredients::remove, () -> PrintModel.print("Ingredient not found"));
     }
@@ -63,7 +63,7 @@ public class FoodStorage {
      */
     public Ingredient getIngredient(String Name) {
         return ingredients.stream()
-                .filter(ingredient -> ingredient.getName().equals(Name))
+                .filter(ingredient -> ingredient.getName().equalsIgnoreCase(Name))
                 .findFirst()
                 .orElse(null);
     }
@@ -96,7 +96,7 @@ public class FoodStorage {
      */
     public void removeIngredientAmount(String name, double amount) {
         ingredients.stream()
-                .filter(ingredient -> ingredient.getName().equals(name))
+                .filter(ingredient -> ingredient.getName().equalsIgnoreCase(name))
                 .findFirst()
                 .ifPresentOrElse(ingredient -> {
                     if (ingredient.getAmount() < amount) {
