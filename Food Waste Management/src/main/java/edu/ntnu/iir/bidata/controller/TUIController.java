@@ -9,32 +9,35 @@ import edu.ntnu.iir.bidata.controller.registers.FoodStorage;
 import edu.ntnu.iir.bidata.model.entities.Ingredient;
 import edu.ntnu.iir.bidata.model.entities.Recipe;
 
-
+/**
+ * The TUIController class handles the text-based user interface for the application.
+ */
 public class TUIController {
     private FoodStorage mainStorage;
     private Cookbook mainCookbook;
 
+    /**
+     * Sets the registers for the main storage and main cookbook.
+     *
+     * @param mainStorage  the main food storage
+     * @param mainCookbook the main cookbook
+     */
     public void setRegisters(FoodStorage mainStorage, Cookbook mainCookbook) {
         this.mainStorage = mainStorage;
         this.mainCookbook = mainCookbook;
     }
 
+    /**
+     * Displays the food storage menu and handles user input for various actions.
+     */
     public void foodStorageMenu() {
         PrintModel.print("Welcome to the FoodStorage Menu");
         PrintModel.storageMenu();
         int choice = InputValidator.readInt("(1,2,3,4,5,6)", 7);
         switch (choice) {
-            case 1:
-                mainStorage.addIngredient(this.makeIngredient());
-
-                this.foodStorageMenu();
-                break;
-            case 2:
-                mainStorage.findIngredient(InputValidator.readString("Name of Ingredient"));
-
-                this.foodStorageMenu();
-                break;
-            case 3:
+            case 1 -> mainStorage.addIngredient(this.makeIngredient());
+            case 2 -> mainStorage.findIngredient(InputValidator.readString("Name of Ingredient"));
+            case 3 -> {
                 String Name = InputValidator.readString("Name of Ingredient:");
                 mainStorage.removeIngredientAmount(
                         Name,
@@ -42,29 +45,24 @@ public class TUIController {
                         InputValidator.readBoolean("Do you wish to update the price?")
                 );
 
-                this.foodStorageMenu();
-                break;
-            case 4:
-                mainStorage.printIngredients();
-
-                this.foodStorageMenu();
-                break;
-            case 5:
-                mainStorage.printExpiredIngredients();
-
-                this.foodStorageMenu();
-                break;
-            case 6:
+            }
+            case 4 -> mainStorage.printIngredientsSorted().forEach(PrintModel::print);
+            case 5 -> mainStorage.printExpiredIngredients();
+            case 6 -> {
                 this.start();
-                break;
-            default:
-                break;
+                return;
+            }
+            default -> {
+            }
 
         }
-
+        this.foodStorageMenu();
     }
 
-    public void start() {
+    /**
+     * Starts the main menu and handles user input for navigating to different sections.
+     */
+    public void start() throws IllegalArgumentException {
         PrintModel.startMenu();
         int choice = InputValidator.readInt("(1,2,3)", 4);
         switch (choice) {
@@ -89,48 +87,73 @@ public class TUIController {
         }
     }
 
+    /**
+     * Displays the cookbook menu and handles user input for various actions.
+     */
     public void cookBookMenu() {
         PrintModel.bookMenu();
         int choice = InputValidator.readInt("(1,2,3,4,5,6)", 7);
         switch (choice) {
-            case 1:
-                mainCookbook.addRecipe(this.makeRecipe());
-                break;
-            case 2:
-                mainCookbook.removeRecipe(InputValidator.readString("Enter name of recipe to remove"));
-                break;
-            case 3:
-                PrintModel.print(mainCookbook.getRecipe(InputValidator.readString("Enter name of recipe to find")));
-                break;
-            case 4:
-                PrintModel.print(mainCookbook);
-                break;
-            case 5:
-                mainCookbook.printAvailableRecipes(mainStorage);
-            case 6:
+            case 1 -> mainCookbook.addRecipe(this.makeRecipe());
+            case 2 -> mainCookbook.removeRecipe(InputValidator.readString("Enter name of recipe to remove"));
+            case 3 -> {
+                if (mainCookbook.getRecipe(InputValidator.readString("Enter name of recipe to find")) != null) {
+                    PrintModel.print(
+                            mainCookbook.getRecipe(InputValidator.readString("Enter name of recipe to find"))
+                    );
+                } else {
+                    PrintModel.print("Recipe not found");
+                }
+            }
+            case 4 -> PrintModel.print(mainCookbook);
+            case 5 -> mainCookbook.printAvailableRecipes(mainStorage);
+            case 6 -> {
                 this.start();
-                break;
-            default:
-                break;
+                return;
+            }
+            default -> {
+            }
         }
+        this.cookBookMenu();
     }
 
-
+    /**
+     * Creates a new Ingredient by prompting the user for input.
+     *
+     * @return the created Ingredient
+     */
     public Ingredient makeIngredient() {
-        String name = InputValidator.readString("Enter name of ingredient");
-        int price = InputValidator.readInt("Enter price of ingredient", 0);
-        int amount = InputValidator.readInt("Enter amount of ingredient (Liter if liquid, grams if solid, pieces if other)", 0);
-        String unit = InputValidator.readUnit("Enter unit of ingredient");
+        String name = InputValidator.readString("Enter name of ingredient:");
+        int price = InputValidator.readInt("Enter price of ingredient:", 0);
+        String unit = InputValidator.readUnit("Enter unit of ingredient:");
+        int amount = InputValidator.readInt("Enter amount of ingredient:", 0);
         Date expDate = InputValidator.readDate("Enter expiration date of ingredient");
         return new Ingredient(name, price, amount, expDate, unit);
     }
 
-    public Recipe makeRecipe() {
+    /**
+     * Creates a new Recipe by prompting the user for input.
+     *
+     * @return the created Recipe
+     */
+    public Recipe makeRecipe() throws IllegalArgumentException {
         String name = InputValidator.readString("Enter name of recipe");
-        String ingredients = InputValidator.readString("Enter ingredients of recipe");
+        String description = InputValidator.readString("Enter description of recipe");
         String instructions = InputValidator.readString("Enter instructions of recipe");
-        return new Recipe(name, ingredients, instructions);
-        //TODO: Finish this
+        Recipe NewRecipe = new Recipe(name, description, instructions);
+
+        int choice = InputValidator.readInt("How many ingredients do you want to add to the recipe?", 0);
+        for (int i = 0; i < choice; i++) {
+            NewRecipe
+                    .addIngredient(
+                            InputValidator.readString("Enter name of ingredient"),
+                            InputValidator.readInt("Enter amount of ingredient", 0),
+                            InputValidator.readInt("Enter price of ingredient", 0),
+                            InputValidator.readUnit("Enter unit of ingredient")
+                            
+                    );
+        }
+        return NewRecipe;
     }
 
 }

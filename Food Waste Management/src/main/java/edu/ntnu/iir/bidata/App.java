@@ -6,7 +6,15 @@ import edu.ntnu.iir.bidata.controller.validator.InputValidator;
 
 import java.util.Scanner;
 
+/**
+ * The App class serves as the entry point for the application.
+ */
 public class App {
+    /**
+     * The main method initializes the application and starts the user interface.
+     *
+     * @param args command-line arguments (not used)
+     */
     public static void main(String[] args) {
         TUIController Controller = new TUIController();
         Initializer Initializer = new Initializer(Controller);
@@ -16,4 +24,3 @@ public class App {
         Controller.start();
     }
 }
-//TODO: JAVADOC COMMENTS

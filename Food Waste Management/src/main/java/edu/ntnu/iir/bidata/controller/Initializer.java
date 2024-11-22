@@ -9,15 +9,26 @@ import edu.ntnu.iir.bidata.view.PrintModel;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
+/**
+ * The Initializer class is responsible for initializing the application, including loading test data if required.
+ */
 public class Initializer {
     private final TUIController controller;
 
+    /**
+     * Constructs an Initializer with the specified TUIController.
+     *
+     * @param controller the TUIController to be used for initialization
+     */
     public Initializer(TUIController controller) {
         this.controller = controller;
     }
 
+    /**
+     * Initializes the application by printing a welcome message, setting up the main storage and cookbook,
+     * and optionally loading test data.
+     */
     public void init() {
         PrintModel.printWelcome();
         FoodStorage mainStorage = new FoodStorage();
@@ -31,31 +42,36 @@ public class Initializer {
         }
     }
 
+    /**
+     * Loads test data into the specified food storage and cookbook.
+     *
+     * @param food     the food storage to load test data into
+     * @param cookbook the cookbook to load test data into
+     */
     public void testDataLoader(FoodStorage food, Cookbook cookbook) {
-        food.addIngredient(new Ingredient("Tomato", 10, 5, new Date(), "pcs"));
-        food.addIngredient(new Ingredient("Potato", 20, 2, new Date(), "pcs"));
-        food.addIngredient(new Ingredient("Onion", 30, 9, new Date(), "pcs"));
-        food.addIngredient(new Ingredient("Garlic", 40, 10, new Date(), "pcs"));
-        food.addIngredient(new Ingredient("Carrot", 50, 18, new Date(), "pcs"));
-        food.addIngredient(new Ingredient("Cucumber", 60, 5, new Date(), "pcs"));
-        food.addIngredient(new Ingredient("Pepper", 70, 0.1, new Date(), "kg"));
-        food.addIngredient(new Ingredient("Salt", 80, 0.1, new Date(), "kg"));
+        food.addIngredient(new Ingredient("Tomato", 10, 5, new Date(2025, 1, 21), "pcs"));
+        food.addIngredient(new Ingredient("Potato", 20, 2, new Date(2025, 1, 21), "pcs"));
+        food.addIngredient(new Ingredient("Onion", 30, 9, new Date(2025, 1, 21), "pcs"));
+        food.addIngredient(new Ingredient("Garlic", 40, 10, new Date(2025, 1, 21), "pcs"));
+        food.addIngredient(new Ingredient("Carrot", 50, 18, new Date(2023, 11, 21), "pcs"));
+        food.addIngredient(new Ingredient("Cucumber", 60, 5, new Date(2025, 1, 21), "pcs"));
+        food.addIngredient(new Ingredient("Pepper", 70, 0.1, new Date(2025, 1, 21), "kg"));
+        food.addIngredient(new Ingredient("Salt", 80, 0.1, new Date(2025, 1, 21), "kg"));
 
         ArrayList<String> authors = new ArrayList<>();
         authors.add("John Doe");
         cookbook.init("Test cookbook", "A cookbook for testing", authors);
-        cookbook.addRecipe(new Recipe("Tomato soup", "Tomato, water, salt", "Cook tomato in water, add salt"));
-        cookbook.getRecipe("Tomato soup").addIngredient("Tomato", 4);
-        cookbook.getRecipe("Tomato soup").addIngredient("Salt", 2);
-        cookbook.getRecipe("Tomato soup").addIngredient("Garlic", 1);
-        cookbook.addRecipe(new Recipe("Potato soup", "Potato, water, salt", "Cook potato in water, add salt"));
-        cookbook.getRecipe("Potato soup").addIngredient("Potato", 4);
-        cookbook.getRecipe("Potato soup").addIngredient("Salt", 2);
-        cookbook.getRecipe("Potato soup").addIngredient("Garlic", 1);
-        cookbook.addRecipe(new Recipe("Onion soup", "Onion, water, salt", "Cook onion in water, add salt"));
-        cookbook.getRecipe("Onion soup").addIngredient("Onion", 4);
-        cookbook.getRecipe("Onion soup").addIngredient("Salt", 2);
-        cookbook.getRecipe("Onion soup").addIngredient("Garlic", 1);
-
+        cookbook.addRecipe(new Recipe("Tomato soup", "simple tomato soup", "Cook tomato in water, add salt"));
+        cookbook.getRecipe("Tomato soup").addIngredient("Tomato", 4, 25, "pcs");
+        cookbook.getRecipe("Tomato soup").addIngredient("Salt", 2, 0.1, "kg");
+        cookbook.getRecipe("Tomato soup").addIngredient("Garlic", 1, 10, "pcs");
+        cookbook.addRecipe(new Recipe("Potato soup", "simple potato soup", "Cook potato in water, add salt"));
+        cookbook.getRecipe("Potato soup").addIngredient("Potato", 4, 15, "pcs");
+        cookbook.getRecipe("Potato soup").addIngredient("Salt", 2, 0.1, "kg");
+        cookbook.getRecipe("Potato soup").addIngredient("Garlic", 1, 10, "pcs");
+        cookbook.addRecipe(new Recipe("Onion soup", "not simple onion soup!", "Cook onion in water, add salt"));
+        cookbook.getRecipe("Onion soup").addIngredient("Onion", 4, 25, "pcs");
+        cookbook.getRecipe("Onion soup").addIngredient("Salt", 2, 0.1, "kg");
+        cookbook.getRecipe("Onion soup").addIngredient("Garlic", 1, 10, "pcs");
     }
 }

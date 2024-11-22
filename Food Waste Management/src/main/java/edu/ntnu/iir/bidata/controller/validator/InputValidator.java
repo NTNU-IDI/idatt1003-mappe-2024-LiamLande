@@ -5,20 +5,33 @@ import edu.ntnu.iir.bidata.view.PrintModel;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Scanner;
+import java.util.*;
 
+/**
+ * The InputValidator class provides static methods for validating and reading user input.
+ */
 public final class InputValidator {
     TUIController controller;
     private static Scanner S;
 
+    /**
+     * Constructs an InputValidator with the specified Scanner and TUIController.
+     *
+     * @param scanner    the Scanner to be used for reading input
+     * @param controller the TUIController to be used for validation
+     */
     public InputValidator(Scanner scanner, TUIController controller) {
         InputValidator.S = scanner;
         this.controller = controller;
     }
 
+    /**
+     * Reads an integer from the user with a prompt and an upper bound.
+     *
+     * @param prompt the prompt to display to the user
+     * @param bound  the upper bound for the integer
+     * @return the integer input by the user
+     */
     public static int readInt(String prompt, int bound) {
         PrintModel.print(prompt);
         int a;
@@ -43,6 +56,32 @@ public final class InputValidator {
         return a;
     }
 
+    /**
+     * Reads a map of ingredient-amount pairs from the user.
+     *
+     * @param prompt the prompt to display to the user
+     * @return a map of ingredient names to their amounts
+     */
+    public static Map<String, Integer> readMap(String prompt) {
+        PrintModel.print(prompt);
+        PrintModel.print("Enter Ingredient:Amount pairs separated by commas:");
+        Map<String, Integer> map = new HashMap<>();
+        String input = S.nextLine();
+        String[] pairs = input.split(",");
+        for (String pair : pairs) {
+            String[] keyValue = pair.split(":");
+            map.put(keyValue[0], Integer.parseInt(keyValue[1]));
+        }
+        return map;
+    }
+
+    /**
+     * Reads a double from the user with a prompt and an upper bound.
+     *
+     * @param prompt the prompt to display to the user
+     * @param bound  the upper bound for the double
+     * @return the double input by the user
+     */
     public static double readDouble(String prompt, double bound) {
         PrintModel.print(prompt);
         double a;
@@ -67,11 +106,23 @@ public final class InputValidator {
         return a;
     }
 
+    /**
+     * Reads a string from the user with a prompt.
+     *
+     * @param prompt the prompt to display to the user
+     * @return the string input by the user
+     */
     public static String readString(String prompt) {
         PrintModel.print(prompt);
         return S.nextLine();
     }
 
+    /**
+     * Reads a date from the user with a prompt.
+     *
+     * @param prompt the prompt to display to the user
+     * @return the date input by the user
+     */
     public static Date readDate(String prompt) {
         PrintModel.print(prompt + " (yyyy-MM-dd)");
         SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
@@ -89,12 +140,23 @@ public final class InputValidator {
         return t;
     }
 
+    /**
+     * Reads a list of strings from the user with a prompt.
+     *
+     * @param prompt the prompt to display to the user
+     * @return a list of strings input by the user
+     */
     public static ArrayList<String> readList(String prompt) {
         PrintModel.print(prompt);
         String input = S.nextLine();
         return new ArrayList<>(Arrays.asList(input.split(",")));
     }
 
+    /**
+     * Reads a boolean value from the user.
+     *
+     * @return the boolean value input by the user
+     */
     public static Boolean readBoolean() {
         PrintModel.print("(y/n)");
 
@@ -106,11 +168,23 @@ public final class InputValidator {
         return input.equals("y");
     }
 
+    /**
+     * Reads a boolean value from the user with a prompt.
+     *
+     * @param prompt the prompt to display to the user
+     * @return the boolean value input by the user
+     */
     public static Boolean readBoolean(String prompt) {
         PrintModel.print(prompt);
         return readBoolean();
     }
 
+    /**
+     * Reads a unit of measurement from the user with a prompt.
+     *
+     * @param prompt the prompt to display to the user
+     * @return the unit of measurement input by the user
+     */
     public static String readUnit(String prompt) {
         PrintModel.print(prompt);
         PrintModel.print("Available units: g, l or pcs");
