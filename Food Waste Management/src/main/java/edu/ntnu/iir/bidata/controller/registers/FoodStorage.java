@@ -1,8 +1,8 @@
 package edu.ntnu.iir.bidata.controller.registers;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,7 +30,7 @@ public class FoodStorage {
      */
     public void addIngredient(Ingredient a) {
         ingredients.stream()
-                .filter(ingredient -> ingredient.getName().equals(a.getName()))
+                .filter(ingredient -> ingredient.getName().equalsIgnoreCase(a.getName()))
                 .findFirst()
                 .ifPresentOrElse(ingredient -> {
                     ingredient.addAmount(ingredient.getAmount());
@@ -74,29 +74,41 @@ public class FoodStorage {
      * @param name the name of the ingredient to check
      * @return true if the ingredient exists, otherwise false
      */
-    public Boolean findIngredient(String name) {
+    public boolean findIngredient(String name) {
         PrintModel.print("Checking for ingredient: " + name);
-        return null != ingredients.stream()
-                .filter(ingredient -> ingredient.getName().equals(name))
+        Ingredient found = ingredients.stream()
+                .filter(ingredient -> ingredient.getName().equalsIgnoreCase(name))
                 .findFirst()
                 .orElse(null);
+        if (found == null) {
+            PrintModel.print("Ingredient not found");
+        } else {
+            PrintModel.print(found);
+        }
+        return found != null;
     }
 
     /**
      * Removes a specified amount of an ingredient from the storage and optionally updates its price.
      *
-     * @param name        the name of the ingredient
-     * @param amount      the amount to remove
-     * @param updatePrice whether to update the price of the ingredient
+     * @param name   the name of the ingredient
+     * @param amount the amount to remove
      */
-    public void removeIngredientAmount(String name, double amount, boolean updatePrice) {
+    public void removeIngredientAmount(String name, double amount) {
         ingredients.stream()
                 .filter(ingredient -> ingredient.getName().equals(name))
                 .findFirst()
                 .ifPresentOrElse(ingredient -> {
-                    ingredient.setAmount(ingredient.getAmount() - amount);
-                    if (updatePrice) {
+                    if (ingredient.getAmount() < amount) {
+                        PrintModel.print("Removing more or equal to the amount, therefore removing " + ingredient.getName());
+                        ingredients.remove(ingredient);
+                    } else {
+                        ingredient.setAmount(ingredient.getAmount() - amount);
+                        PrintModel.print("Removed " + amount + ingredient.getUnit() + " of " + ingredient.getName());
+                    }
+                    if (InputValidator.readBoolean("Do you wish to update the price?")) {
                         ingredient.setPrice(ingredient.getPrice() - amount * ingredient.getPrice() / ingredient.getAmount());
+                        PrintModel.print("Price updated to: " + ingredient.getPrice() + " NOK");
                     }
                 }, () -> PrintModel.print("Ingredient not found"));
     }
@@ -104,7 +116,7 @@ public class FoodStorage {
     /**
      * Prints all ingredients in the storage.
      */
-    public List<Ingredient> printIngredientsSorted() {
+    public List<Ingredient> getIngredientsSorted() {
         return ingredients.stream()
                 .sorted(Comparator.comparing(Ingredient::getName))
                 .collect(Collectors.toCollection(ArrayList::new));
@@ -115,7 +127,7 @@ public class FoodStorage {
      */
     public void printExpiredIngredients() {
         double total = ingredients.stream()
-                .filter(ingredient -> new Date().after(ingredient.getExpDate()))
+                .filter(ingredient -> ingredient.getExpDate().isBefore(LocalDate.now()))
                 .peek(PrintModel::print)
                 .mapToDouble(Ingredient::getPrice)
                 .sum();

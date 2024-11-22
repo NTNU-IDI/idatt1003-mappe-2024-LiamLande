@@ -2,32 +2,45 @@
 # Portfolio project IDATT1003
 This file uses Mark Down syntax. For more information see [here](https://www.markdownguide.org/basic-syntax/).
 
-
 STUDENT NAME = "Liam Schreiner Lande"  
 STUDENT ID = "133946"
 
 ## Project description
 
-[//]: # (TODO: Write a short description of your project/product here.)
+This project is a portfolio application that allows users to manage and track their personal projects. It includes features such as project creation, editing, deletion, and viewing project details.
 
 ## Project structure
 
-[//]: # (TODO: Describe the structure of your project here. How have you used packages in your structure. Where are all sourcefiles stored. Where are all JUnit-test classes stored. etc.)
+The project is organized into several packages:
+- `edu.ntnu.iir.bidata`: Contains the main application classes.
+- `edu.ntnu.iir.bidata.model`: Contains the data models used in the application.
+- `edu.ntnu.iir.bidata.controller`: Contains the controllers that handle user interactions.
+- `edu.ntnu.iir.bidata.view`: Contains the views for displaying the user interface.
+
+All source files are stored in the `src` directory. JUnit test classes are stored in the `test` directory.
 
 ## Link to repository
 
-[//]: # (TODO: Include a link to your GitHub repository here.)
+[GitHub Repository](https://github.com/NTNU-IDI/idatt1003-mappe-2024-LiamLande)
 
 ## How to run the project
 
-[//]: # (TODO: Describe how to run your project here. What is the main class? What is the main method?
-What is the input and output of the program? What is the expected behaviour of the program?)
+1. Clone the repository from GitHub.
+2. Open the project in your preferred IDE.
+3. Build the project using Maven.
+4. Run the `App` class located in the `edu.ntnu.iir.bidata` package.
+5. The application will start, and you can interact with the user interface to test the project.
+
+The main class is `App` and the main method is `public static void main(String[] args)`. The input is user interactions through the Console.
 
 ## How to run the tests
 
-[//]: # (TODO: Describe how to run the tests here.)
+1. Open the project in your preferred IDE.
+2. Navigate to the `test` directory.
+3. Run the JUnit test classes to execute the tests.
 
 ## References
 
-[//]: # (TODO: Include references here, if any. For example, if you have used code from the course book, include a reference to the chapter.
-Or if you have used code from a website or other source, include a link to the source.)
+- [Markdown Guide](https://www.markdownguide.org/basic-syntax/)
+- [JUnit 5 User Guide](https://junit.org/junit5/docs/current/user-guide/)
+- [Maven Documentation](https://maven.apache.org/guides/index.html)

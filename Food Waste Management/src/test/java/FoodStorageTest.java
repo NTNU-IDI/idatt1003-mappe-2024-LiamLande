@@ -70,16 +70,16 @@ public class FoodStorageTest extends TestCase {
     public void testRemoveIngredientAmount() {
         Ingredient ingredient = new Ingredient("Tomato", 10, 5, new Date(), "pcs");
         foodStorage.addIngredient(ingredient);
-        foodStorage.removeIngredientAmount(ingredient.getName(), 2, false);
+        foodStorage.removeIngredientAmount(ingredient.getName(), 2);
         assertEquals(3, ingredient.getAmount());
     }
 
-    public void testPrintIngredientsSorted() {
+    public void testGetIngredientsSorted() {
         Ingredient ingredient1 = new Ingredient("Tomato", 10, 5, new Date(), "pcs");
         Ingredient ingredient2 = new Ingredient("Potato", 20, 10, new Date(), "pcs");
         foodStorage.addIngredient(ingredient1);
         foodStorage.addIngredient(ingredient2);
-        foodStorage.printIngredientsSorted().forEach(PrintModel::print);
+        foodStorage.getIngredientsSorted().forEach(PrintModel::print);
         String expectedOutput = "Ingredients:\r\n" + ingredient1 + "\r\n" + ingredient2 + "\r\n" + "Total value of ingredients: " + (ingredient1.getPpu() * ingredient1.getAmount() + ingredient2.getPpu() * ingredient2.getAmount()) + "\r\n";
         assertEquals(expectedOutput, outContent.toString());
     }

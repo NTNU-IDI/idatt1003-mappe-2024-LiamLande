@@ -3,7 +3,7 @@ package edu.ntnu.iir.bidata.model.entities;
 import edu.ntnu.iir.bidata.controller.validator.ArgumentValidator;
 import edu.ntnu.iir.bidata.view.PrintModel;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * Represents an ingredient with a name, price, amount, expiration date, and unit.
@@ -13,7 +13,7 @@ public class Ingredient {
     private double price;
     private double ppu;
     private double amount;
-    private Date expDate;
+    private LocalDate expDate;
     private final String unit;
 
     /**
@@ -25,7 +25,7 @@ public class Ingredient {
      * @param expDate the expiration date of the ingredient
      * @param unit    the unit of measurement for the ingredient
      */
-    public Ingredient(String name, double price, double amount, Date expDate, String unit)
+    public Ingredient(String name, double price, double amount, LocalDate expDate, String unit)
             throws IllegalArgumentException {
         ArgumentValidator.IngredientValidator(name, price, amount, unit, expDate);
         this.name = name;
@@ -47,6 +47,7 @@ public class Ingredient {
      * @param unit   the unit of measurement for the ingredient
      */
     public Ingredient(String name, double price, double amount, String unit) {
+        ArgumentValidator.RecipeIngredientValidator(name, price, amount, unit);
         this.name = name;
         this.price = price;
         this.amount = amount;
@@ -105,7 +106,7 @@ public class Ingredient {
      *
      * @return the expiration date of the ingredient
      */
-    public Date getExpDate() {
+    public LocalDate getExpDate() {
         return expDate;
     }
 
@@ -123,7 +124,7 @@ public class Ingredient {
      *
      * @param expDate the new expiration date of the ingredient
      */
-    public void setExpDate(Date expDate) {
+    public void setExpDate(LocalDate expDate) {
         this.expDate = expDate;
     }
 

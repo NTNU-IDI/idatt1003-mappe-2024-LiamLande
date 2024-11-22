@@ -3,8 +3,7 @@ package edu.ntnu.iir.bidata.controller.validator;
 import edu.ntnu.iir.bidata.controller.TUIController;
 import edu.ntnu.iir.bidata.view.PrintModel;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 
 /**
@@ -56,24 +55,6 @@ public final class InputValidator {
         return a;
     }
 
-    /**
-     * Reads a map of ingredient-amount pairs from the user.
-     *
-     * @param prompt the prompt to display to the user
-     * @return a map of ingredient names to their amounts
-     */
-    public static Map<String, Integer> readMap(String prompt) {
-        PrintModel.print(prompt);
-        PrintModel.print("Enter Ingredient:Amount pairs separated by commas:");
-        Map<String, Integer> map = new HashMap<>();
-        String input = S.nextLine();
-        String[] pairs = input.split(",");
-        for (String pair : pairs) {
-            String[] keyValue = pair.split(":");
-            map.put(keyValue[0], Integer.parseInt(keyValue[1]));
-        }
-        return map;
-    }
 
     /**
      * Reads a double from the user with a prompt and an upper bound.
@@ -123,21 +104,24 @@ public final class InputValidator {
      * @param prompt the prompt to display to the user
      * @return the date input by the user
      */
-    public static Date readDate(String prompt) {
-        PrintModel.print(prompt + " (yyyy-MM-dd)");
-        SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
-        String input = S.nextLine();
-
-        System.out.print(input + " Parses as ");
-        Date t;
-        try {
-            t = ft.parse(input);
-            PrintModel.print(t);
-        } catch (ParseException e) {
-            PrintModel.print("Unparseable using " + ft);
-            t = readDate("Try again, remember the format -");
+    public static LocalDate readDate(String prompt) {
+        PrintModel.print(prompt);
+        int year = InputValidator.readInt("Enter year:", 0);
+        if (year < 0) {
+            PrintModel.print("Invalid year, try again");
+            return readDate(prompt);
         }
-        return t;
+        int month = InputValidator.readInt("Enter month:", 12);
+        if (month < 1) {
+            PrintModel.print("Invalid month, try again");
+            return readDate(prompt);
+        }
+        int day = InputValidator.readInt("Enter day:", 31);
+        if (day < 1) {
+            PrintModel.print("Invalid day, try again");
+            return readDate(prompt);
+        }
+        return LocalDate.of(year, month, day);
     }
 
     /**

@@ -1,6 +1,6 @@
 package edu.ntnu.iir.bidata.controller.validator;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * The ArgumentValidator class provides static methods for validating various arguments related to ingredients, recipes, and cookbooks.
@@ -17,7 +17,7 @@ public class ArgumentValidator {
      * @param expDate the expiration date of the ingredient
      * @throws IllegalArgumentException if any argument is invalid
      */
-    public static void IngredientValidator(String name, double price, double amount, String unit, Date expDate)
+    public static void IngredientValidator(String name, double price, double amount, String unit, LocalDate expDate)
             throws IllegalArgumentException {
         ArgumentValidator.RecipeIngredientValidator(name, price, amount, unit);
         if (expDate == null) {
@@ -45,8 +45,8 @@ public class ArgumentValidator {
         if (amount < 0) {
             throw new IllegalArgumentException("Amount cannot be negative");
         }
-        if (unit == null || unit.isEmpty()) {
-            throw new IllegalArgumentException("Unit cannot be empty");
+        if (unit == null || unit.isEmpty() || !unit.equalsIgnoreCase("g") && !unit.equalsIgnoreCase("l") && !unit.equalsIgnoreCase("pcs")) {
+            throw new IllegalArgumentException("Unit is not accepted (must be g, l or pcs)s");
         }
     }
 
@@ -68,23 +68,6 @@ public class ArgumentValidator {
         }
         if (instructions == null || instructions.isEmpty()) {
             throw new IllegalArgumentException("Instructions cannot be empty");
-        }
-    }
-
-    /**
-     * Validates the arguments for a cookbook.
-     *
-     * @param name        the name of the cookbook
-     * @param description the description of the cookbook
-     * @throws IllegalArgumentException if any argument is invalid
-     */
-    public static void CookbookValidator(String name, String description)
-            throws IllegalArgumentException {
-        if (name == null || name.isEmpty()) {
-            throw new IllegalArgumentException("Name cannot be empty");
-        }
-        if (description == null || description.isEmpty()) {
-            throw new IllegalArgumentException("Description cannot be empty");
         }
     }
 }

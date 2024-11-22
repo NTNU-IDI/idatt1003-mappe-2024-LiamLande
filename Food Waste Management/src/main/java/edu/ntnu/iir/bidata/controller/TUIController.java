@@ -1,6 +1,6 @@
 package edu.ntnu.iir.bidata.controller;
 
-import java.util.*;
+import java.time.LocalDate;
 
 import edu.ntnu.iir.bidata.controller.validator.InputValidator;
 import edu.ntnu.iir.bidata.view.PrintModel;
@@ -41,12 +41,11 @@ public class TUIController {
                 String Name = InputValidator.readString("Name of Ingredient:");
                 mainStorage.removeIngredientAmount(
                         Name,
-                        InputValidator.readDouble("Amount to remove:", mainStorage.getIngredient(Name).getAmount()),
-                        InputValidator.readBoolean("Do you wish to update the price?")
+                        InputValidator.readDouble("Amount to remove:", 0)
                 );
 
             }
-            case 4 -> mainStorage.printIngredientsSorted().forEach(PrintModel::print);
+            case 4 -> mainStorage.getIngredientsSorted().forEach(PrintModel::print);
             case 5 -> mainStorage.printExpiredIngredients();
             case 6 -> {
                 this.start();
@@ -127,7 +126,7 @@ public class TUIController {
         int price = InputValidator.readInt("Enter price of ingredient:", 0);
         String unit = InputValidator.readUnit("Enter unit of ingredient:");
         int amount = InputValidator.readInt("Enter amount of ingredient:", 0);
-        Date expDate = InputValidator.readDate("Enter expiration date of ingredient");
+        LocalDate expDate = InputValidator.readDate("Enter expiration date of ingredient");
         return new Ingredient(name, price, amount, expDate, unit);
     }
 
@@ -150,7 +149,7 @@ public class TUIController {
                             InputValidator.readInt("Enter amount of ingredient", 0),
                             InputValidator.readInt("Enter price of ingredient", 0),
                             InputValidator.readUnit("Enter unit of ingredient")
-                            
+
                     );
         }
         return NewRecipe;

@@ -4,11 +4,8 @@ import edu.ntnu.iir.bidata.model.entities.Ingredient;
 import edu.ntnu.iir.bidata.model.entities.Recipe;
 import edu.ntnu.iir.bidata.controller.registers.Cookbook;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Map;
 
 /**
  * The PrintModel class provides static methods to print various types of data to the console.
@@ -47,20 +44,8 @@ public final class PrintModel {
      *
      * @param date the date to print
      */
-    public static void print(Date date) {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-        PrintModel.print(dateFormat.format(date));
-    }
-
-    /**
-     * Prints a given map to the console.
-     *
-     * @param map the map to print
-     */
-    public static void print(Map<String, Integer> map) {
-        for (String key : map.keySet()) {
-            PrintModel.print(key + ": " + map.get(key));
-        }
+    public static void print(LocalDate date) {
+        PrintModel.print(date.toString());
     }
 
     /**
@@ -78,10 +63,15 @@ public final class PrintModel {
      * @param recipe the recipe to print
      */
     public static void print(Recipe recipe) {
+        PrintModel.print("--------------------");
+        PrintModel.print("Recipe:");
         PrintModel.print(recipe.getName());
         PrintModel.print(recipe.getDescription());
+        PrintModel.print("Ingredients:");
         recipe.getIngredients().forEach(PrintModel::print);
+        PrintModel.print("Instructions:");
         PrintModel.print(recipe.getInstructions());
+        PrintModel.print("--------------------");
     }
 
     /**
@@ -90,11 +80,18 @@ public final class PrintModel {
      * @param ingredient the ingredient to print
      */
     public static void print(Ingredient ingredient) {
+        PrintModel.print("--------------------");
         PrintModel.print(ingredient.getName());
         PrintModel.print(ingredient.getAmount() + " " + ingredient.getUnit());
-        PrintModel.print("Exp Date: " + ingredient.getExpDate());
+        if (ingredient.getExpDate() != null) {
+            if (ingredient.getExpDate().isBefore(LocalDate.now())) {
+                PrintModel.print("EXPIRED");
+            }
+            PrintModel.print("Exp Date: ");
+            PrintModel.print(ingredient.getExpDate());
+        }
         PrintModel.print(ingredient.getPrice() + ";- NOK");
-        PrintModel.print("");
+        PrintModel.print("--------------------");
 
     }
 

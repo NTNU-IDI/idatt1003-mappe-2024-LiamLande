@@ -3,9 +3,7 @@ package edu.ntnu.iir.bidata.model.entities;
 import edu.ntnu.iir.bidata.controller.validator.ArgumentValidator;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Represents a recipe with a name, description, instructions, and ingredients.
@@ -71,7 +69,7 @@ public class Recipe {
     /**
      * Returns the ingredients of the recipe.
      *
-     * @return a map of ingredient names to their amounts
+     * @return a list of ingredients
      */
     public List<Ingredient> getIngredients() {
         return Ingredients;
