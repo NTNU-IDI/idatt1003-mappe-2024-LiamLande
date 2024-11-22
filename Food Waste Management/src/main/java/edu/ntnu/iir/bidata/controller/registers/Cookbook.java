@@ -81,7 +81,7 @@ public class Cookbook {
      */
     public Recipe getRecipe(String name) {
         return Recipes.stream()
-                .filter(recipe -> recipe.getName().equals(name))
+                .filter(recipe -> recipe.getName().equalsIgnoreCase(name))
                 .findFirst()
                 .orElse(null);
     }
@@ -101,7 +101,7 @@ public class Cookbook {
      * @param name the name of the recipe to remove
      */
     public void removeRecipe(String name) {
-        Recipes.removeIf(recipe -> recipe.getName().equals(name));
+        Recipes.removeIf(recipe -> recipe.getName().equalsIgnoreCase(name));
     }
 
     /**
