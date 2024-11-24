@@ -54,10 +54,11 @@ public class Initializer {
         food.addIngredient(new Ingredient("Potato", 20, 2, LocalDate.of(2025, 1, 21), "pcs"));
         food.addIngredient(new Ingredient("Onion", 30, 9, LocalDate.of(2025, 1, 21), "pcs"));
         food.addIngredient(new Ingredient("Garlic", 40, 10, LocalDate.of(2025, 1, 21), "pcs"));
-        food.addIngredient(new Ingredient("Carrot", 50, 18, LocalDate.of(2023, 11, 21), "pcs"));
+        food.addIngredient(new Ingredient("Carrot", 50, 18, LocalDate.of(2024, 11, 21), "pcs"));
         food.addIngredient(new Ingredient("Cucumber", 60, 5, LocalDate.of(2025, 1, 21), "pcs"));
         food.addIngredient(new Ingredient("Pepper", 70, 100, LocalDate.of(2025, 1, 21), "g"));
         food.addIngredient(new Ingredient("Salt", 80, 100, LocalDate.of(2025, 1, 21), "g"));
+
 
         ArrayList<String> authors = new ArrayList<>();
         authors.add("John Doe");

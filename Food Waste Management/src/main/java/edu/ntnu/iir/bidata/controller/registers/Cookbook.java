@@ -1,5 +1,6 @@
 package edu.ntnu.iir.bidata.controller.registers;
 
+import edu.ntnu.iir.bidata.controller.validator.ArgumentValidator;
 import edu.ntnu.iir.bidata.model.entities.Recipe;
 import edu.ntnu.iir.bidata.view.PrintModel;
 
@@ -13,6 +14,10 @@ public class Cookbook {
     private String Description;
     private ArrayList<Recipe> Recipes;
     private ArrayList<String> Authors;
+
+
+    public Cookbook() {
+    }
 
     /**
      * Checks if the cookbook is initialized with a name and description.
@@ -31,11 +36,18 @@ public class Cookbook {
      * @param authors     the list of authors of the cookbook
      */
     public void init(String name, String description, ArrayList<String> authors) {
+        try {
+            ArgumentValidator.CookbookValidator(name, description, authors);
+        } catch (IllegalArgumentException e) {
+            PrintModel.print(e.getMessage());
+            return;
+        }
         Name = name;
         Description = description;
         Authors = authors;
         Recipes = new ArrayList<>();
     }
+
 
     /**
      * Returns the description of the cookbook.

@@ -99,16 +99,16 @@ public class FoodStorage {
                 .filter(ingredient -> ingredient.getName().equalsIgnoreCase(name))
                 .findFirst()
                 .ifPresentOrElse(ingredient -> {
-                    if (ingredient.getAmount() < amount) {
+                    if (ingredient.getAmount() <= amount) {
                         PrintModel.print("Removing more or equal to the amount, therefore removing " + ingredient.getName());
                         ingredients.remove(ingredient);
                     } else {
                         ingredient.setAmount(ingredient.getAmount() - amount);
                         PrintModel.print("Removed " + amount + ingredient.getUnit() + " of " + ingredient.getName());
-                    }
-                    if (InputValidator.readBoolean("Do you wish to update the price?")) {
-                        ingredient.setPrice(ingredient.getPrice() - amount * ingredient.getPrice() / ingredient.getAmount());
-                        PrintModel.print("Price updated to: " + ingredient.getPrice() + " NOK");
+                        if (InputValidator.readBoolean("Do you wish to update the price?")) {
+                            ingredient.setPrice(ingredient.getPrice() - amount * ingredient.getPrice() / ingredient.getAmount());
+                            PrintModel.print("Price updated to: " + ingredient.getPrice() + " NOK");
+                        }
                     }
                 }, () -> PrintModel.print("Ingredient not found"));
     }

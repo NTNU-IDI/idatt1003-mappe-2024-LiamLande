@@ -31,15 +31,6 @@ public class AppTest extends TestCase {
         System.setOut(originalOut);
     }
 
-//    public void testAppInitialization() {
-//        // Add InputValidator Scanner scanner = new Scanner(System.in);
-//        TUIController controller = new TUIController();
-//        Initializer init = new Initializer(controller);
-//        init.init();
-//        assertNotNull(mainStorage);
-//        assertNotNull(mainCookbook);
-//    }
-
     public void testAppStart() {
         String simulatedInput = "3\n"; // Simulate user input to exit the menu
         ByteArrayInputStream inContent = new ByteArrayInputStream(simulatedInput.getBytes());

@@ -23,10 +23,10 @@ public class Recipe {
      */
     public Recipe(String name, String description, String instructions) throws IllegalArgumentException {
         ArgumentValidator.RecipeValidator(name, description, instructions);
-        Name = name;
-        Description = description;
-        Instructions = instructions;
-        Ingredients = new ArrayList<>();
+        this.Name = name;
+        this.Description = description;
+        this.Instructions = instructions;
+        this.Ingredients = new ArrayList<>();
     }
 
     /**

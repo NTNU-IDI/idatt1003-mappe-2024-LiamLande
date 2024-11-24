@@ -2,6 +2,7 @@ package edu.ntnu.iir.bidata.controller;
 
 import java.time.LocalDate;
 
+import edu.ntnu.iir.bidata.controller.validator.ArgumentValidator;
 import edu.ntnu.iir.bidata.controller.validator.InputValidator;
 import edu.ntnu.iir.bidata.view.PrintModel;
 import edu.ntnu.iir.bidata.controller.registers.Cookbook;
@@ -96,10 +97,9 @@ public class TUIController {
             case 1 -> mainCookbook.addRecipe(this.makeRecipe());
             case 2 -> mainCookbook.removeRecipe(InputValidator.readString("Enter name of recipe to remove"));
             case 3 -> {
-                if (mainCookbook.getRecipe(InputValidator.readString("Enter name of recipe to find")) != null) {
-                    PrintModel.print(
-                            mainCookbook.getRecipe(InputValidator.readString("Enter name of recipe to find"))
-                    );
+                Recipe recipe = mainCookbook.getRecipe(InputValidator.readString("Enter name of recipe to find"));
+                if (recipe != null) {
+                    PrintModel.print(recipe);
                 } else {
                     PrintModel.print("Recipe not found");
                 }
@@ -127,6 +127,12 @@ public class TUIController {
         String unit = InputValidator.readUnit("Enter unit of ingredient:");
         int amount = InputValidator.readInt("Enter amount of ingredient:", 0);
         LocalDate expDate = InputValidator.readDate("Enter expiration date of ingredient");
+        try {
+            ArgumentValidator.IngredientValidator(name, price, amount, unit, expDate);
+        } catch (IllegalArgumentException e) {
+            PrintModel.print(e.getMessage());
+            return makeIngredient();
+        }
         return new Ingredient(name, price, amount, expDate, unit);
     }
 
@@ -139,18 +145,28 @@ public class TUIController {
         String name = InputValidator.readString("Enter name of recipe");
         String description = InputValidator.readString("Enter description of recipe");
         String instructions = InputValidator.readString("Enter instructions of recipe");
+        try {
+            ArgumentValidator.RecipeValidator(name, description, instructions);
+        } catch (IllegalArgumentException e) {
+            PrintModel.print(e.getMessage());
+            return makeRecipe();
+        }
         Recipe NewRecipe = new Recipe(name, description, instructions);
 
         int choice = InputValidator.readInt("How many ingredients do you want to add to the recipe?", 0);
         for (int i = 0; i < choice; i++) {
-            NewRecipe
-                    .addIngredient(
-                            InputValidator.readString("Enter name of ingredient"),
-                            InputValidator.readInt("Enter amount of ingredient", 0),
-                            InputValidator.readInt("Enter price of ingredient", 0),
-                            InputValidator.readUnit("Enter unit of ingredient")
-
-                    );
+            String name_ing = InputValidator.readString("Enter name of ingredient");
+            double amount = InputValidator.readDouble("Enter amount of ingredient", 0);
+            double price = InputValidator.readDouble("Enter price of ingredient", 0);
+            String unit = InputValidator.readUnit("Enter unit of ingredient");
+            try {
+                ArgumentValidator.RecipeIngredientValidator(name_ing, price, amount, unit);
+            } catch (IllegalArgumentException e) {
+                PrintModel.print(e.getMessage());
+                i--;
+                continue;
+            }
+            NewRecipe.addIngredient(name_ing, amount, price, unit);
         }
         return NewRecipe;
     }

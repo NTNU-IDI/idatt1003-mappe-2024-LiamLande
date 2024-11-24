@@ -6,7 +6,7 @@ import edu.ntnu.iir.bidata.controller.registers.FoodStorage;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class FoodStorageTest extends TestCase {
@@ -39,14 +39,14 @@ public class FoodStorageTest extends TestCase {
 
 
     public void testAddIngredientWithLegalValues() {
-        Ingredient ingredient = new Ingredient("Tomato", 10.0, 5, new Date(), "pcs");
+        Ingredient ingredient = new Ingredient("Tomato", 10.0, 5, LocalDate.now(), "pcs");
         foodStorage.addIngredient(ingredient);
         assertTrue(foodStorage.findIngredient("Tomato"));
     }
 
     public void testAddIngredientWithIllegalValues() {
         try {
-            Ingredient ingredient = new Ingredient("", -10, -5, new Date(), "a");
+            Ingredient ingredient = new Ingredient("", -10, -5, LocalDate.now(), "a");
             foodStorage.addIngredient(ingredient);
         } catch (IllegalArgumentException e) {
             // Expected exception
@@ -54,29 +54,29 @@ public class FoodStorageTest extends TestCase {
     }
 
     public void testRemoveIngredient() {
-        Ingredient ingredient = new Ingredient("Tomato", 10, 5, new Date(), "pcs");
+        Ingredient ingredient = new Ingredient("Tomato", 10, 5, LocalDate.now(), "pcs");
         foodStorage.addIngredient(ingredient);
         foodStorage.removeIngredient(ingredient.getName());
         assertFalse(foodStorage.findIngredient("Tomato"));
     }
 
     public void testFindIngredient() {
-        Ingredient ingredient = new Ingredient("Tomato", 10, 5, new Date(), "pcs");
+        Ingredient ingredient = new Ingredient("Tomato", 10, 5, LocalDate.now(), "pcs");
         foodStorage.addIngredient(ingredient);
         assertTrue(foodStorage.findIngredient("Tomato"));
         assertFalse(foodStorage.findIngredient("Potato"));
     }
 
     public void testRemoveIngredientAmount() {
-        Ingredient ingredient = new Ingredient("Tomato", 10, 5, new Date(), "pcs");
+        Ingredient ingredient = new Ingredient("Tomato", 10, 5, LocalDate.now(), "pcs");
         foodStorage.addIngredient(ingredient);
         foodStorage.removeIngredientAmount(ingredient.getName(), 2);
         assertEquals(3, ingredient.getAmount());
     }
 
     public void testGetIngredientsSorted() {
-        Ingredient ingredient1 = new Ingredient("Tomato", 10, 5, new Date(), "pcs");
-        Ingredient ingredient2 = new Ingredient("Potato", 20, 10, new Date(), "pcs");
+        Ingredient ingredient1 = new Ingredient("Tomato", 10, 5, LocalDate.now(), "pcs");
+        Ingredient ingredient2 = new Ingredient("Potato", 20, 10, LocalDate.now(), "pcs");
         foodStorage.addIngredient(ingredient1);
         foodStorage.addIngredient(ingredient2);
         foodStorage.getIngredientsSorted().forEach(PrintModel::print);
@@ -85,7 +85,7 @@ public class FoodStorageTest extends TestCase {
     }
 
     public void testPrintExpiredIngredients() {
-        Date pastDate = new Date(System.currentTimeMillis() - 100000);
+        LocalDate pastDate = LocalDate.of(2020, 1, 1);
         Ingredient expiredIngredient = new Ingredient("Expired", 10, 5, pastDate, "pcs");
         foodStorage.addIngredient(expiredIngredient);
         foodStorage.printExpiredIngredients();
@@ -94,8 +94,8 @@ public class FoodStorageTest extends TestCase {
     }
 
     public void testPrintTotalValue() {
-        Ingredient ingredient1 = new Ingredient("Tomato", 10, 5, new Date(), "pcs");
-        Ingredient ingredient2 = new Ingredient("Potato", 20, 10, new Date(), "pcs");
+        Ingredient ingredient1 = new Ingredient("Tomato", 10, 5, LocalDate.now(), "pcs");
+        Ingredient ingredient2 = new Ingredient("Potato", 20, 10, LocalDate.now(), "pcs");
         foodStorage.addIngredient(ingredient1);
         foodStorage.addIngredient(ingredient2);
         foodStorage.printTotalValue();

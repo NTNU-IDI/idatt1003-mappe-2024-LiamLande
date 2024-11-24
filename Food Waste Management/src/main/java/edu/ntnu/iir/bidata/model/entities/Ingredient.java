@@ -14,7 +14,7 @@ public class Ingredient {
     private double ppu;
     private double amount;
     private LocalDate expDate;
-    private final String unit;
+    private String unit;
 
     /**
      * Constructs a new Ingredient with the specified name, price, amount, expiration date, and unit.
@@ -27,13 +27,11 @@ public class Ingredient {
      */
     public Ingredient(String name, double price, double amount, LocalDate expDate, String unit)
             throws IllegalArgumentException {
-        ArgumentValidator.IngredientValidator(name, price, amount, unit, expDate);
-        this.name = name;
-        this.price = price;
-        this.amount = amount;
-        this.expDate = expDate;
-        this.unit = unit;
-        this.ppu = price / amount;
+        this.name = (name);
+        setPrice(price);
+        setAmount(amount);
+        setExpDate(expDate);
+        setUnit(unit);
     }
 
     /**
@@ -47,13 +45,10 @@ public class Ingredient {
      * @param unit   the unit of measurement for the ingredient
      */
     public Ingredient(String name, double price, double amount, String unit) {
-        ArgumentValidator.RecipeIngredientValidator(name, price, amount, unit);
-        this.name = name;
-        this.price = price;
-        this.amount = amount;
-        this.expDate = null;
-        this.unit = unit;
-        this.ppu = price / amount;
+        this.name = (name);
+        setPrice(price);
+        setAmount(amount);
+        setUnit(unit);
     }
 
     /**
@@ -116,8 +111,20 @@ public class Ingredient {
      * @param amount the new amount of the ingredient
      */
     public void setAmount(double amount) {
+        ArgumentValidator.AmountValidator(amount);
         this.amount = amount;
     }
+
+    /**
+     * Sets the unit of measurement for the ingredient.
+     *
+     * @param unit the new unit of measurement for the ingredient
+     */
+    private void setUnit(String unit) {
+        ArgumentValidator.UnitValidator(unit);
+        this.unit = unit;
+    }
+
 
     /**
      * Sets the expiration date of the ingredient.
@@ -125,6 +132,7 @@ public class Ingredient {
      * @param expDate the new expiration date of the ingredient
      */
     public void setExpDate(LocalDate expDate) {
+        ArgumentValidator.ExpDateValidator(expDate);
         this.expDate = expDate;
     }
 
@@ -134,8 +142,19 @@ public class Ingredient {
      * @param price the new price of the ingredient
      */
     public void setPrice(double price) {
+        ArgumentValidator.PriceValidator(price);
         this.price = price;
         this.ppu = price / amount;
+    }
+
+
+    /**
+     * Sets the price per unit of the ingredient.
+     *
+     * @param ppu the new price per unit of the ingredient
+     */
+    private void setPpu(double ppu) {
+        this.ppu = ppu;
     }
 
     /**
@@ -144,10 +163,11 @@ public class Ingredient {
      * @param amount the amount to add
      */
     public void addAmount(double amount) {
+        ArgumentValidator.AmountValidator(amount);
         PrintModel.print("Adding " + amount + " to " + this.name);
         PrintModel.print("Presuming price is the same per unit (" + ppu + ")");
 
         this.amount += amount;
-        this.price += amount * this.ppu;
+        this.price += amount * getPpu();
     }
 }

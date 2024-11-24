@@ -113,7 +113,7 @@ public final class PrintModel {
     }
 
     /**
-     * Prints the storage menu to the console.
+     * Prints the food storage menu to the console.
      */
     public static void storageMenu() {
         PrintModel.print("1.Add Ingredient to your food storage");
@@ -125,7 +125,7 @@ public final class PrintModel {
     }
 
     /**
-     * Prints the cookbook menu to the console.
+     * Prints the cook book menu to the console.
      */
     public static void bookMenu() {
         PrintModel.print("Welcome to the Cookbook menu");

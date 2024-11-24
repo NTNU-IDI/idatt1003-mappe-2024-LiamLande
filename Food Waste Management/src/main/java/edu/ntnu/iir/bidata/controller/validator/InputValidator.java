@@ -72,10 +72,7 @@ public final class InputValidator {
             PrintModel.print("Invalid input, try again");
             return readDouble(prompt, bound);
         }
-        if (bound == 0) {
-            return a;
-        }
-        if (a > bound) {
+        if (a > bound && bound != 0) {
             PrintModel.print("Number too high, try again");
             return readDouble(prompt, bound);
         }
@@ -83,7 +80,6 @@ public final class InputValidator {
             PrintModel.print("Number too low, try again");
             return readDouble(prompt, bound);
         }
-
         return a;
     }
 
@@ -102,23 +98,17 @@ public final class InputValidator {
      * Reads a date from the user with a prompt.
      *
      * @param prompt the prompt to display to the user
-     * @return the date input by the user
+     * @return LocalDate the date input by the user
      */
     public static LocalDate readDate(String prompt) {
         PrintModel.print(prompt);
         int year = InputValidator.readInt("Enter year:", 0);
-        if (year < 0) {
-            PrintModel.print("Invalid year, try again");
-            return readDate(prompt);
-        }
         int month = InputValidator.readInt("Enter month:", 12);
-        if (month < 1) {
-            PrintModel.print("Invalid month, try again");
-            return readDate(prompt);
-        }
         int day = InputValidator.readInt("Enter day:", 31);
-        if (day < 1) {
-            PrintModel.print("Invalid day, try again");
+        try {
+            LocalDate.of(year, month, day);
+        } catch (Exception e) {
+            PrintModel.print("Invalid date, try again");
             return readDate(prompt);
         }
         return LocalDate.of(year, month, day);
@@ -132,8 +122,15 @@ public final class InputValidator {
      */
     public static ArrayList<String> readList(String prompt) {
         PrintModel.print(prompt);
+        PrintModel.print("Separate, values, with, a, comma");
+
         String input = S.nextLine();
-        return new ArrayList<>(Arrays.asList(input.split(",")));
+        ArrayList<String> List = new ArrayList<>(Arrays.asList(input.split(",")));
+        if (List.isEmpty()) {
+            PrintModel.print("Invalid input, try again");
+            return readList(prompt);
+        }
+        return List;
     }
 
     /**
@@ -171,9 +168,9 @@ public final class InputValidator {
      */
     public static String readUnit(String prompt) {
         PrintModel.print(prompt);
-        PrintModel.print("Available units: g, l or pcs");
+        PrintModel.print("Available units: g, ml or pcs");
         String input = S.nextLine();
-        if (!input.equals("g") && !input.equals("kg") && !input.equals("l") && !input.equals("pcs")) {
+        if (!input.equals("g") && !input.equals("ml") && !input.equals("pcs")) {
             PrintModel.print("Invalid input, try again");
             return readUnit(prompt);
         }
