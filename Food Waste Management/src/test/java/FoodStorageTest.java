@@ -8,6 +8,7 @@ import edu.ntnu.iir.bidata.controller.registers.FoodStorage;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 
 public class FoodStorageTest extends TestCase {
@@ -43,20 +44,10 @@ public class FoodStorageTest extends TestCase {
         new InputValidator(scanner, controller);
     }
 
-
-    public void testAddIngredientWithLegalValues() {
+    public void testAddIngredient() {
         Ingredient ingredient = new Ingredient("Tomato", 10.0, 5, LocalDate.now(), "pcs");
         foodStorage.addIngredient(ingredient);
         assertTrue(foodStorage.findIngredient("Tomato"));
-    }
-
-    public void testAddIngredientWithIllegalValues() {
-        try {
-            Ingredient ingredient = new Ingredient("", -10, -5, LocalDate.now(), "a");
-            foodStorage.addIngredient(ingredient);
-        } catch (IllegalArgumentException e) {
-            // Expected exception
-        }
     }
 
     public void testRemoveIngredient() {
@@ -108,6 +99,38 @@ public class FoodStorageTest extends TestCase {
         foodStorage.addIngredient(ingredient2);
         foodStorage.printTotalValue();
         String expectedOutput = "Total value of ingredients: " + (ingredient1.getPrice() + ingredient2.getPrice()) + "\r\n";
+        assertEquals(expectedOutput, outContent.toString());
+    }
+
+    public void testRemoveNonExistentIngredient() {
+        foodStorage.removeIngredient("NonExistent");
+        assertFalse(foodStorage.findIngredient("NonExistent"));
+    }
+
+    public void testRemoveIngredientAmountMoreThanExists() {
+        Ingredient ingredient = new Ingredient("Tomato", 10, 5, LocalDate.now(), "pcs");
+        foodStorage.addIngredient(ingredient);
+        setInput("n");
+        foodStorage.removeIngredientAmount(ingredient.getName(), 10);
+        assertFalse(foodStorage.findIngredient("Tomato"));
+    }
+
+    public void testGetIngredientsSortedWithEmptyStorage() {
+        List<Ingredient> sortedIngredients = foodStorage.getIngredientsSorted();
+        assertTrue(sortedIngredients.isEmpty());
+    }
+
+    public void testPrintExpiredIngredientsWithNoExpired() {
+        Ingredient ingredient = new Ingredient("Tomato", 10, 5, LocalDate.now().plusDays(1), "pcs");
+        foodStorage.addIngredient(ingredient);
+        foodStorage.printExpiredIngredients();
+        String expectedOutput = "Total value of expired ingredients: 0.0\r\n";
+        assertEquals(expectedOutput, outContent.toString());
+    }
+
+    public void testPrintTotalValueWithEmptyStorage() {
+        foodStorage.printTotalValue();
+        String expectedOutput = "Total value of ingredients: 0.0\r\n";
         assertEquals(expectedOutput, outContent.toString());
     }
 }

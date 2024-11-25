@@ -140,13 +140,9 @@ public class Cookbook {
      */
     public void printAvailableRecipes(FoodStorage food) {
         for (Recipe recipe : Recipes) {
-            boolean canMake = true;
-            for (var ingredient : recipe.getIngredients()) {
-                if (!food.findIngredient(ingredient.getName()) && ingredient.getAmount() >= food.getIngredient(ingredient.getName()).getAmount()) {
-                    canMake = false;
-                    break;
-                }
-            }
+            boolean canMake = recipe.getIngredients().stream()
+                    .allMatch(ingredient -> food.findIngredient(ingredient.getName())
+                            && ingredient.getAmount() <= food.getIngredient(ingredient.getName()).getAmount());
             if (canMake) {
                 PrintModel.print(recipe);
             }
