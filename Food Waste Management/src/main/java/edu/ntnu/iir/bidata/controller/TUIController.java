@@ -7,8 +7,8 @@ import edu.ntnu.iir.bidata.controller.validator.InputValidator;
 import edu.ntnu.iir.bidata.view.PrintModel;
 import edu.ntnu.iir.bidata.controller.registers.Cookbook;
 import edu.ntnu.iir.bidata.controller.registers.FoodStorage;
-import edu.ntnu.iir.bidata.model.entities.Ingredient;
-import edu.ntnu.iir.bidata.model.entities.Recipe;
+import edu.ntnu.iir.bidata.model.Ingredient;
+import edu.ntnu.iir.bidata.model.Recipe;
 
 /**
  * The TUIController class handles the text-based user interface for the application.
@@ -92,7 +92,7 @@ public class TUIController {
      */
     public void cookBookMenu() {
         PrintModel.bookMenu();
-        int choice = InputValidator.readInt("(1,2,3,4,5,6)", 7);
+        int choice = InputValidator.readInt("(1,2,3,4,5,6,7)", 7);
         switch (choice) {
             case 1 -> mainCookbook.addRecipe(this.makeRecipe());
             case 2 -> mainCookbook.removeRecipe(InputValidator.readString("Enter name of recipe to remove"));
@@ -106,7 +106,8 @@ public class TUIController {
             }
             case 4 -> PrintModel.print(mainCookbook);
             case 5 -> mainCookbook.printAvailableRecipes(mainStorage);
-            case 6 -> {
+            case 6 -> mainCookbook.checkRecipe(mainStorage, InputValidator.readString("Enter name of recipe to check"));
+            case 7 -> {
                 this.start();
                 return;
             }
@@ -156,9 +157,9 @@ public class TUIController {
         int choice = InputValidator.readInt("How many ingredients do you want to add to the recipe?", 0);
         for (int i = 0; i < choice; i++) {
             String name_ing = InputValidator.readString("Enter name of ingredient");
+            String unit = InputValidator.readUnit("Enter unit of ingredient");
             double amount = InputValidator.readDouble("Enter amount of ingredient", 0);
             double price = InputValidator.readDouble("Enter price of ingredient", 0);
-            String unit = InputValidator.readUnit("Enter unit of ingredient");
             try {
                 ArgumentValidator.RecipeIngredientValidator(name_ing, price, amount, unit);
             } catch (IllegalArgumentException e) {

@@ -4,10 +4,9 @@ import java.io.PrintStream;
 import java.util.Scanner;
 
 import edu.ntnu.iir.bidata.controller.Initializer;
+import edu.ntnu.iir.bidata.controller.validator.InputValidator;
 import junit.framework.TestCase;
-import edu.ntnu.iir.bidata.controller.registers.FoodStorage;
 import edu.ntnu.iir.bidata.controller.TUIController;
-import edu.ntnu.iir.bidata.controller.registers.Cookbook;
 
 public class AppTest extends TestCase {
 
@@ -32,18 +31,35 @@ public class AppTest extends TestCase {
     }
 
     public void testAppStart() {
-        String simulatedInput = "3\n"; // Simulate user input to exit the menu
+        String simulatedInput = "n\n3"; // Simulate user input to exit the menu
         ByteArrayInputStream inContent = new ByteArrayInputStream(simulatedInput.getBytes());
         Scanner scanner = new Scanner(inContent);
-
         TUIController controller = new TUIController();
+        new InputValidator(scanner, controller);
         Initializer init = new Initializer(controller);
         init.init();
         controller.start();
 
-        String expectedMenu = "1. Food storage management\r\n2. Recipes, and other extra features\r\n3. Exit";
+        String expectedMenu = "\n" +
+                "  ______                 _   _____  _                                  \n" +
+                " |  ____|               | | / ____|| |                                 \n" +
+                " | |__  ___    ___    __| || (___  | |_  ___   _ __  __ _   __ _   ___ \n" +
+                " |  __|/ _ \\  / _ \\  / _` | \\___ \\ | __|/ _ \\ | '__|/ _` | / _` | / _ \\\n" +
+                " | |  | (_) || (_) || (_| | ____) || |_| (_) || |  | (_| || (_| ||  __/\n" +
+                " |_|   \\___/  \\___/  \\__,_||_____/  \\__|\\___/ |_|   \\__,_| \\__, | \\___|\n" +
+                "                                                            __/ |      \n" +
+                "                                                           |___/       \n" +
+                "\n" +
+                "Welcome to the food storage system\n" +
+                "... Initialising variables ...\n" +
+                "Do you want to load test data?\n" +
+                "(y/n)\n" +
+                "No test data loaded\n" +
+                "1. Food storage\n" +
+                "2. Cookbook\n" +
+                "3. Exit\n" +
+                "(1,2,3)\n";
 
-        // Print the captured output for debugging
 
         assertTrue(outContent.toString().contains(expectedMenu));
     }

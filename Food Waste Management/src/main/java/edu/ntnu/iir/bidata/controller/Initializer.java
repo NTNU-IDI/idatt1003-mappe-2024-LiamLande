@@ -3,8 +3,8 @@ package edu.ntnu.iir.bidata.controller;
 import edu.ntnu.iir.bidata.controller.registers.Cookbook;
 import edu.ntnu.iir.bidata.controller.registers.FoodStorage;
 import edu.ntnu.iir.bidata.controller.validator.InputValidator;
-import edu.ntnu.iir.bidata.model.entities.Ingredient;
-import edu.ntnu.iir.bidata.model.entities.Recipe;
+import edu.ntnu.iir.bidata.model.Ingredient;
+import edu.ntnu.iir.bidata.model.Recipe;
 import edu.ntnu.iir.bidata.view.PrintModel;
 
 import java.time.LocalDate;

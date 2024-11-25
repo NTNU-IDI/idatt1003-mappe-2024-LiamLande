@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import edu.ntnu.iir.bidata.controller.validator.InputValidator;
-import edu.ntnu.iir.bidata.model.entities.Ingredient;
+import edu.ntnu.iir.bidata.model.Ingredient;
 import edu.ntnu.iir.bidata.view.PrintModel;
 
 /**

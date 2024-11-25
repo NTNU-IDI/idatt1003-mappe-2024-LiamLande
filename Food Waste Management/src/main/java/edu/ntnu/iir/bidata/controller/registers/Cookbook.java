@@ -1,7 +1,7 @@
 package edu.ntnu.iir.bidata.controller.registers;
 
 import edu.ntnu.iir.bidata.controller.validator.ArgumentValidator;
-import edu.ntnu.iir.bidata.model.entities.Recipe;
+import edu.ntnu.iir.bidata.model.Recipe;
 import edu.ntnu.iir.bidata.view.PrintModel;
 
 import java.util.ArrayList;
@@ -116,15 +116,43 @@ public class Cookbook {
         Recipes.removeIf(recipe -> recipe.getName().equalsIgnoreCase(name));
     }
 
+    public void checkRecipe(FoodStorage food, String RecipeName) {
+        Recipe recipe = getRecipe(RecipeName);
+        if (recipe != null) {
+            boolean canMake = true;
+            for (var ingredient : recipe.getIngredients()) {
+                if (!food.findIngredient(ingredient.getName()) && ingredient.getAmount() >= food.getIngredient(ingredient.getName()).getAmount()) {
+                    canMake = false;
+                    break;
+                }
+            }
+            if (canMake) {
+                PrintModel.print("You can make this recipe");
+            } else {
+                PrintModel.print("You can't make this recipe");
+            }
+        } else {
+            PrintModel.print("Recipe not found");
+        }
+    }
+
     /**
      * Prints the available recipes that can be made with the ingredients in the specified food storage.
      *
      * @param food the food storage to check for ingredients
      */
     public void printAvailableRecipes(FoodStorage food) {
-        Recipes.stream()
-                .filter(recipe -> recipe.getIngredients().stream()
-                        .allMatch(ingredient -> food.getIngredient(ingredient.getName()) != null))
-                .forEach(PrintModel::print);
+        for (Recipe recipe : Recipes) {
+            boolean canMake = true;
+            for (var ingredient : recipe.getIngredients()) {
+                if (!food.findIngredient(ingredient.getName()) && ingredient.getAmount() >= food.getIngredient(ingredient.getName()).getAmount()) {
+                    canMake = false;
+                    break;
+                }
+            }
+            if (canMake) {
+                PrintModel.print(recipe);
+            }
+        }
     }
 }

@@ -1,4 +1,4 @@
-package edu.ntnu.iir.bidata.model.entities;
+package edu.ntnu.iir.bidata.model;
 
 import edu.ntnu.iir.bidata.controller.validator.ArgumentValidator;
 

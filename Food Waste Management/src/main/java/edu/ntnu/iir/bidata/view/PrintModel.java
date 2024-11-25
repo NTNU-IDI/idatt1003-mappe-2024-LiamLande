@@ -1,7 +1,7 @@
 package edu.ntnu.iir.bidata.view;
 
-import edu.ntnu.iir.bidata.model.entities.Ingredient;
-import edu.ntnu.iir.bidata.model.entities.Recipe;
+import edu.ntnu.iir.bidata.model.Ingredient;
+import edu.ntnu.iir.bidata.model.Recipe;
 import edu.ntnu.iir.bidata.controller.registers.Cookbook;
 
 import java.time.LocalDate;
@@ -134,7 +134,8 @@ public final class PrintModel {
         PrintModel.print("3. Find recipe");
         PrintModel.print("4. Print cookbook and all recipes");
         PrintModel.print("5. Recommend me a recipe");
-        PrintModel.print("6. Back to main menu");
+        PrintModel.print("6. Check if you have all ingredients for a recipe");
+        PrintModel.print("7. Back to main menu");
     }
 
     /**
