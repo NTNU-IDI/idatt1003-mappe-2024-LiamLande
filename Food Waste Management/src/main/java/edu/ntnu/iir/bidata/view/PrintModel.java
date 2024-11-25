@@ -6,6 +6,7 @@ import edu.ntnu.iir.bidata.controller.registers.Cookbook;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The PrintModel class provides static methods to print various types of data to the console.
@@ -53,7 +54,7 @@ public final class PrintModel {
      *
      * @param list the list of strings to print
      */
-    public static void print(ArrayList<String> list) {
+    public static void print(List<String> list) {
         list.forEach(PrintModel::print);
     }
 
@@ -74,6 +75,15 @@ public final class PrintModel {
         PrintModel.print("--------------------");
     }
 
+    public static void beforeIngredients() {
+        PrintModel.print("--------------------");
+        PrintModel.print(String.format("%-20s %-10s %-10s %-15s %-10s", "Name", "Amount", "Unit", "Exp Date", "Price"));
+    }
+
+    public static void afterIngredients() {
+        PrintModel.print("--------------------");
+    }
+
     /**
      * Prints a given ingredient to the console.
      *
@@ -81,18 +91,17 @@ public final class PrintModel {
      */
     public static void print(Ingredient ingredient) {
         PrintModel.print("--------------------");
-        PrintModel.print(ingredient.getName());
-        PrintModel.print(ingredient.getAmount() + " " + ingredient.getUnit());
-        if (ingredient.getExpDate() != null) {
-            if (ingredient.getExpDate().isBefore(LocalDate.now())) {
-                PrintModel.print("EXPIRED");
-            }
-            PrintModel.print("Exp Date: ");
-            PrintModel.print(ingredient.getExpDate());
-        }
-        PrintModel.print(ingredient.getPrice() + ";- NOK");
-        PrintModel.print("--------------------");
+        PrintModel.print(String.format("%-20s %-10.2f %-10s %-15s %-10.2f",
+                ingredient.getName(),
+                ingredient.getAmount(),
+                ingredient.getUnit(),
+                (ingredient.getExpDate() != null ? ingredient.getExpDate().toString() : "N/A"),
+                ingredient.getPrice()));
 
+        if (ingredient.getExpDate() != null && ingredient.getExpDate().isBefore(LocalDate.now())) {
+            PrintModel.print("EXPIRED");
+        }
+        PrintModel.print("--------------------");
     }
 
     /**

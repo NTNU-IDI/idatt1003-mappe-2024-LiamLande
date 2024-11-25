@@ -83,6 +83,7 @@ public class FoodStorage {
         if (found == null) {
             PrintModel.print("Ingredient not found");
         } else {
+            PrintModel.beforeIngredients();
             PrintModel.print(found);
         }
         return found != null;
@@ -126,11 +127,13 @@ public class FoodStorage {
      * Prints all expired ingredients in the storage and their total value.
      */
     public void printExpiredIngredients() {
+        PrintModel.beforeIngredients();
         double total = ingredients.stream()
                 .filter(ingredient -> ingredient.getExpDate().isBefore(LocalDate.now()))
                 .peek(PrintModel::print)
                 .mapToDouble(Ingredient::getPrice)
                 .sum();
+        PrintModel.afterIngredients();
         PrintModel.print("Total value of expired ingredients: " + total);
     }
 

@@ -5,6 +5,7 @@ import edu.ntnu.iir.bidata.model.Recipe;
 import edu.ntnu.iir.bidata.view.PrintModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The Cookbook class manages a collection of recipes, including their initialization, addition, removal, and querying.
@@ -12,8 +13,8 @@ import java.util.ArrayList;
 public class Cookbook {
     private String Name;
     private String Description;
-    private ArrayList<Recipe> Recipes;
-    private ArrayList<String> Authors;
+    private List<Recipe> Recipes;
+    private List<String> Authors;
 
 
     public Cookbook() {
@@ -44,7 +45,7 @@ public class Cookbook {
         }
         Name = name;
         Description = description;
-        Authors = authors;
+        Authors = new ArrayList<>(authors);
         Recipes = new ArrayList<>();
     }
 
@@ -72,7 +73,7 @@ public class Cookbook {
      *
      * @return the list of recipes
      */
-    public ArrayList<Recipe> getRecipes() {
+    public List<Recipe> getRecipes() {
         return Recipes;
     }
 
@@ -81,7 +82,7 @@ public class Cookbook {
      *
      * @return the list of authors
      */
-    public ArrayList<String> getAuthors() {
+    public List<String> getAuthors() {
         return Authors;
     }
 
@@ -119,13 +120,9 @@ public class Cookbook {
     public void checkRecipe(FoodStorage food, String RecipeName) {
         Recipe recipe = getRecipe(RecipeName);
         if (recipe != null) {
-            boolean canMake = true;
-            for (var ingredient : recipe.getIngredients()) {
-                if (!food.findIngredient(ingredient.getName()) && ingredient.getAmount() >= food.getIngredient(ingredient.getName()).getAmount()) {
-                    canMake = false;
-                    break;
-                }
-            }
+            boolean canMake = recipe.getIngredients().stream()
+                    .allMatch(ingredient -> food.findIngredient(ingredient.getName())
+                            && ingredient.getAmount() <= food.getIngredient(ingredient.getName()).getAmount());
             if (canMake) {
                 PrintModel.print("You can make this recipe");
             } else {

@@ -46,7 +46,11 @@ public class TUIController {
                 );
 
             }
-            case 4 -> mainStorage.getIngredientsSorted().forEach(PrintModel::print);
+            case 4 -> {
+                PrintModel.beforeIngredients();
+                mainStorage.getIngredientsSorted().forEach(PrintModel::print);
+                PrintModel.afterIngredients();
+            }
             case 5 -> mainStorage.printExpiredIngredients();
             case 6 -> {
                 this.start();
@@ -67,24 +71,27 @@ public class TUIController {
         int choice = InputValidator.readInt("(1,2,3)", 4);
         switch (choice) {
             case 1:
-                this.foodStorageMenu();
+                foodStorageMenu();
                 break;
             case 2:
-                if (mainCookbook.isInitialized()) {
-                    this.cookBookMenu();
-                } else {
-                    PrintModel.print("Cookbook not initialized, please create a cookbook");
-                    mainCookbook.init(
-                            InputValidator.readString("Enter name of cookbook"),
-                            InputValidator.readString("Enter description of cookbook"),
-                            InputValidator.readList("Enter name of authors (seperated by commas)"));
-                    PrintModel.print("Cookbook initialized, adding a recipe");
-                    mainCookbook.addRecipe(this.makeRecipe());
+                if (!mainCookbook.isInitialized()) {
+                    InitializeCookbook();
                 }
+                cookBookMenu();
                 break;
             default:
                 break;
         }
+    }
+
+    private void InitializeCookbook() {
+        PrintModel.print("Cookbook not initialized, please create a cookbook");
+        mainCookbook.init(
+                InputValidator.readString("Enter name of cookbook"),
+                InputValidator.readString("Enter description of cookbook"),
+                InputValidator.readList("Enter name of authors (seperated by commas)"));
+        PrintModel.print("Cookbook initialized, adding a recipe");
+        mainCookbook.addRecipe(this.makeRecipe());
     }
 
     /**
