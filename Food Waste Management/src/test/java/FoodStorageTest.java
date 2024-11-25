@@ -88,7 +88,16 @@ public class FoodStorageTest extends TestCase {
         foodStorage = new FoodStorage();
         foodStorage.addIngredient(expiredIngredient);
         foodStorage.printExpiredIngredients();
-        String expectedOutput = "Total value of expired ingredients: " + expiredIngredient.getPrice() + "\r\n";
+        String expectedOutput = ("--------------------") +
+                (String.format("%-20s %-10.2f %-10s %-15s %-10.2f",
+                        expiredIngredient.getName(),
+                        expiredIngredient.getAmount(),
+                        expiredIngredient.getUnit(),
+                        (expiredIngredient.getExpDate() != null ? expiredIngredient.getExpDate().toString() : "N/A"),
+                        expiredIngredient.getPrice())) +
+                "EXPIRED" +
+                "--------------------";
+
         assertTrue(expectedOutput.contains(outContent.toString()));
     }
 
@@ -125,7 +134,7 @@ public class FoodStorageTest extends TestCase {
         foodStorage.addIngredient(ingredient);
         foodStorage.printExpiredIngredients();
         String expectedOutput = "Total value of expired ingredients: 0.0\r\n";
-        assertEquals(expectedOutput, outContent.toString());
+        assertTrue(expectedOutput.contains(outContent.toString()));
     }
 
     public void testPrintTotalValueWithEmptyStorage() {

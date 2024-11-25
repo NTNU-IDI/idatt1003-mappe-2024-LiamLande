@@ -93,7 +93,7 @@ public class ArgumentValidator {
         RecipeInstructionValidator(instructions);
     }
 
-    private static void NameValidator(String name) {
+    public static void NameValidator(String name) {
         if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Name cannot be empty");
         }

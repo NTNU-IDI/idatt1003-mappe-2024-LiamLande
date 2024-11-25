@@ -12,8 +12,8 @@ public class IngredientTest extends TestCase {
     public void testAddIngredientWithLegalValues() {
         Ingredient ingredient = new Ingredient("Tomato", 10.0, 5, LocalDate.now(), "pcs");
         assertEquals("Tomato", ingredient.getName());
-        assertEquals(10.0, ingredient.getAmount());
-        assertEquals(5, ingredient.getPrice());
+        assertEquals(10.0, ingredient.getPrice());
+        assertEquals(5.0, ingredient.getAmount());
         assertEquals("pcs", ingredient.getUnit());
     }
 
