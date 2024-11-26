@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class IngredientTest {
     private Ingredient ingredient;
+    private Ingredient recipeIngredient;
     private String name;
     private double price;
     private LocalDate expiryDate;
@@ -26,6 +27,7 @@ class IngredientTest {
         unit = "ml";
 
         ingredient = new Ingredient(name, price, amount, expiryDate, unit);
+        recipeIngredient = new Ingredient(name, price, amount, unit);
     }
 
     @Test
@@ -128,5 +130,22 @@ class IngredientTest {
                 "IllegalArgumentException should be thrown if price is negative or zero"
         );
         assertEquals("Price cannot be negative or null", e.getMessage(), "Messages should match");
+    }
+
+    @Test
+    void testGetDateRecipeIngredient() {
+        assertEquals(LocalDate.ofYearDay(9999, 1), recipeIngredient.getExpiryDate(), "Dates should be equal");
+    }
+
+    @Test
+    void testIngredientAddAmount() {
+        double newAmount = 5.0;
+        ingredient.addAmount(newAmount);
+        assertEquals(ingredient.getAmount(), amount + newAmount, "Amount should match");
+    }
+
+    @Test
+    void testGetDate() {
+        assertEquals(expiryDate, ingredient.getExpiryDate(), "Dates should be equal");
     }
 }

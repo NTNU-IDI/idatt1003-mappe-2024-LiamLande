@@ -4,7 +4,6 @@ import edu.ntnu.iir.bidata.controller.validator.ArgumentValidator;
 import edu.ntnu.iir.bidata.view.PrintModel;
 
 import java.time.LocalDate;
-import java.util.Optional;
 
 /**
  * Represents an ingredient with a name, price, amount, expiration date, and unit.
@@ -34,6 +33,7 @@ public class Ingredient {
         setAmount(amount);
         setExpDate(expDate);
         setUnit(unit);
+        setPpu(price / amount);
     }
 
     /**
@@ -51,6 +51,7 @@ public class Ingredient {
         setPrice(price);
         setAmount(amount);
         setUnit(unit);
+        setPpu(price / amount);
         this.expDate = LocalDate.ofYearDay(9999, 1);
     }
 
@@ -118,6 +119,11 @@ public class Ingredient {
         this.amount = amount;
     }
 
+    public void setPpu(double ppu) {
+        ArgumentValidator.PriceValidator(ppu);
+        this.ppu = ppu;
+    }
+
     /**
      * Sets the unit of measurement for the ingredient.
      *
@@ -147,17 +153,7 @@ public class Ingredient {
     public void setPrice(double price) {
         ArgumentValidator.PriceValidator(price);
         this.price = price;
-        this.ppu = price / amount;
-    }
-
-
-    /**
-     * Sets the price per unit of the ingredient.
-     *
-     * @param ppu the new price per unit of the ingredient
-     */
-    private void setPpu(double ppu) {
-        this.ppu = ppu;
+        this.ppu = price / this.amount;
     }
 
     /**
@@ -167,8 +163,8 @@ public class Ingredient {
      */
     public void addAmount(double amount) {
         ArgumentValidator.AmountValidator(amount);
-        PrintModel.print("Adding " + amount + " to " + this.name);
-        PrintModel.print("Presuming price is the same per unit (" + ppu + ")");
+        PrintModel.print("Adding " + amount + " to " + getName());
+        PrintModel.print("Presuming price is the same per unit (" + getPpu() + ")");
 
         this.amount += amount;
         this.price += amount * getPpu();
