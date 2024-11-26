@@ -7,6 +7,7 @@ import edu.ntnu.iir.bidata.controller.registers.Cookbook;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * The PrintModel class provides static methods to print various types of data to the console.
@@ -95,7 +96,7 @@ public final class PrintModel {
                 ingredient.getName(),
                 ingredient.getAmount(),
                 ingredient.getUnit(),
-                (ingredient.getExpDate() != null ? ingredient.getExpDate().toString() : "N/A"),
+                (Objects.equals(ingredient.getExpDate(), LocalDate.ofYearDay(9999, 1)) ? "N/A" : ingredient.getExpDate().toString()),
                 ingredient.getPrice()));
 
         if (ingredient.getExpDate() != null && ingredient.getExpDate().isBefore(LocalDate.now())) {

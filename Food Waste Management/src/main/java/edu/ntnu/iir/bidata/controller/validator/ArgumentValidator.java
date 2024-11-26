@@ -62,19 +62,19 @@ public class ArgumentValidator {
 
     public static void UnitValidator(String unit) {
         if (unit == null || unit.isEmpty() || !unit.equalsIgnoreCase("g") && !unit.equalsIgnoreCase("ml") && !unit.equalsIgnoreCase("pcs")) {
-            throw new IllegalArgumentException("Unit is not accepted (must be g, ml or pcs)s");
+            throw new IllegalArgumentException("Unit is not accepted (must be g, ml or pcs)");
         }
     }
 
     public static void AmountValidator(double amount) {
-        if (amount < 0) {
-            throw new IllegalArgumentException("Amount cannot be negative");
+        if (amount <= 0) {
+            throw new IllegalArgumentException("Amount cannot be negative or null");
         }
     }
 
     public static void PriceValidator(double price) {
         if (price < 0) {
-            throw new IllegalArgumentException("Price cannot be negative");
+            throw new IllegalArgumentException("Price cannot be negative or null");
         }
     }
 
@@ -95,13 +95,13 @@ public class ArgumentValidator {
 
     public static void NameValidator(String name) {
         if (name == null || name.isEmpty()) {
-            throw new IllegalArgumentException("Name cannot be empty");
+            throw new IllegalArgumentException("Name cannot be empty or null");
         }
     }
 
     private static void RecipeDescriptionValidator(String description) {
         if (description == null || description.isEmpty()) {
-            throw new IllegalArgumentException("Description cannot be empty");
+            throw new IllegalArgumentException("Description cannot be empty or null");
         }
     }
 

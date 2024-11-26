@@ -44,14 +44,14 @@ class IngredientTest {
                 "IllegalArgumentException should be thrown if name is empty"
         );
         assertEquals(
-                "Name cannot be null or empty.", exception1.getMessage(), "Messages should match"
+                "Name cannot be empty or null", exception1.getMessage(), "Messages should match"
         );
         IllegalArgumentException exception2 = assertThrows(IllegalArgumentException.class,
                 () -> new Ingredient(null, price, amount, expiryDate, unit),
                 "IllegalArgumentException should be thrown if name is null"
         );
         assertEquals(
-                "Name cannot be null or empty.", exception2.getMessage(), "Messages should match"
+                "Name cannot be empty or null", exception2.getMessage(), "Messages should match"
         );
     }
 
@@ -61,7 +61,7 @@ class IngredientTest {
                 () -> new Ingredient(name, -1, amount, expiryDate, unit),
                 "IllegalArgumentException should be thrown if price is negative or zero"
         );
-        assertEquals("Price cannot be 0 or negative.", e.getMessage(), "Messages should match");
+        assertEquals("Price cannot be negative or null", e.getMessage(), "Messages should match");
     }
 
     @Test
@@ -70,16 +70,16 @@ class IngredientTest {
                 () -> new Ingredient(name, price, 0, expiryDate, unit),
                 "IllegalArgumentException should be thrown if date is null"
         );
-        assertEquals("Date cannot be null.", e.getMessage(), "Messages should match");
+        assertEquals("Amount cannot be negative or null", e.getMessage(), "Messages should match");
     }
 
     @Test
     void testDateThrows() {
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
                 () -> new Ingredient(name, price, amount, null, unit),
-                "IllegalArgumentException should be thrown if amount is negative or zero"
+                "IllegalArgumentException should be thrown if date is null or more than 14 days in the past"
         );
-        assertEquals("Amount cannot be 0 or negative.", e.getMessage(), "Messages should match");
+        assertEquals("Expiration date cannot be null or more than 14 days in the past", e.getMessage(), "Messages should match");
     }
 
     @Test
@@ -88,12 +88,12 @@ class IngredientTest {
                 () -> new Ingredient(name, price, amount, expiryDate, ""),
                 "IllegalArgumentException should be thrown if unit is empty"
         );
-        assertEquals("Unit cannot be null or empty.", e1.getMessage(), "Messages should match");
+        assertEquals("Unit is not accepted (must be g, ml or pcs)", e1.getMessage(), "Messages should match");
         IllegalArgumentException e2 = assertThrows(IllegalArgumentException.class,
                 () -> new Ingredient(name, price, amount, expiryDate, null),
                 "IllegalArgumentException should be thrown if unit is null"
         );
-        assertEquals("Unit cannot be null or empty.", e2.getMessage(), "Messages should match");
+        assertEquals("Unit is not accepted (must be g, ml or pcs)", e2.getMessage(), "Messages should match");
     }
 
     @Test
@@ -115,9 +115,9 @@ class IngredientTest {
         double newAmount = 0;
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
                 () -> ingredient.setAmount(newAmount),
-                "IllegalArgumentException should be thrown if amount is negative or zero"
+                "IllegalArgumentException should be thrown if amount is negative, null or zero"
         );
-        assertEquals("Amount should not be negative or zero", e.getMessage(), "Messages should match");
+        assertEquals("Amount cannot be negative or null", e.getMessage(), "Messages should match");
     }
 
     @Test
@@ -127,6 +127,6 @@ class IngredientTest {
                 () -> ingredient.setPrice(newPrice),
                 "IllegalArgumentException should be thrown if price is negative or zero"
         );
-        assertEquals("Price should not be negative or zero", e.getMessage(), "Messages should match");
+        assertEquals("Price cannot be negative or null", e.getMessage(), "Messages should match");
     }
 }

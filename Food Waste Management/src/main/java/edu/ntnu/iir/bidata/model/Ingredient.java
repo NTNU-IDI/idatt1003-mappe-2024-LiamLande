@@ -4,6 +4,7 @@ import edu.ntnu.iir.bidata.controller.validator.ArgumentValidator;
 import edu.ntnu.iir.bidata.view.PrintModel;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 /**
  * Represents an ingredient with a name, price, amount, expiration date, and unit.
@@ -50,6 +51,7 @@ public class Ingredient {
         setPrice(price);
         setAmount(amount);
         setUnit(unit);
+        this.expDate = LocalDate.ofYearDay(9999, 1);
     }
 
     /**
