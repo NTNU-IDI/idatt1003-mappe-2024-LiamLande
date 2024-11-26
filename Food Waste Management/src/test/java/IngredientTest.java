@@ -23,7 +23,7 @@ class IngredientTest {
         price = 9.95;
         expiryDate = LocalDate.now();
         amount = 2.0;
-        unit = "L";
+        unit = "ml";
 
         ingredient = new Ingredient(name, price, amount, expiryDate, unit);
     }
