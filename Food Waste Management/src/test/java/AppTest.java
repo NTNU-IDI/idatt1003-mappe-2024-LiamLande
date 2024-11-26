@@ -3,33 +3,20 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import edu.ntnu.iir.bidata.controller.Initializer;
 import edu.ntnu.iir.bidata.controller.validator.InputValidator;
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
 import edu.ntnu.iir.bidata.controller.TUIController;
 
-public class AppTest extends TestCase {
+public class AppTest {
 
     private final PrintStream originalOut = System.out;
     private ByteArrayOutputStream outContent;
 
-    public AppTest(String testName) {
-        super(testName);
-    }
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
-        outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
-    }
-
-    @Override
-    protected void tearDown() throws Exception {
-        super.tearDown();
-        System.setOut(originalOut);
-    }
-
+    @Test
     public void testAppStart() {
         String simulatedInput = "n\n3"; // Simulate user input to exit the menu
         ByteArrayInputStream inContent = new ByteArrayInputStream(simulatedInput.getBytes());

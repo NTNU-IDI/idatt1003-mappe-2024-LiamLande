@@ -33,11 +33,9 @@ public class FoodStorage {
                 .filter(ingredient -> ingredient.getName().equalsIgnoreCase(a.getName()))
                 .findFirst()
                 .ifPresentOrElse(ingredient -> {
-                    ingredient.addAmount(ingredient.getAmount());
-                    if (InputValidator.readBoolean("Do you wish to add the price to the old price or update the old price by new amount (ppu)?")) {
-
-                        ingredient.setPrice(ingredient.getPrice() + a.getPrice());
-                    }
+                    ingredient.addAmount(a.getAmount());
+                    ingredient.setPrice(ingredient.getPrice() + a.getPrice());
+                    PrintModel.print("WARNING: Setting expiration date to the latest date, EAT AT YOUR OWN RISK!");
                     ingredient.setExpDate(a.getExpDate());
                 }, () -> ingredients.add(a));
 
@@ -104,12 +102,13 @@ public class FoodStorage {
                         PrintModel.print("Removing more or equal to the amount, therefore removing " + ingredient.getName());
                         ingredients.remove(ingredient);
                     } else {
-                        ingredient.setAmount(ingredient.getAmount() - amount);
-                        PrintModel.print("Removed " + amount + ingredient.getUnit() + " of " + ingredient.getName());
                         if (InputValidator.readBoolean("Do you wish to update the price?")) {
-                            ingredient.setPrice(ingredient.getPrice() - amount * ingredient.getPrice() / ingredient.getAmount());
+                            ingredient.setPrice(ingredient.getPrice() - ingredient.getPrice() * amount / ingredient.getAmount());
                             PrintModel.print("Price updated to: " + ingredient.getPrice() + " NOK");
                         }
+                        ingredient.setAmount(ingredient.getAmount() - amount);
+                        PrintModel.print("Removed " + amount + ingredient.getUnit() + " of " + ingredient.getName());
+
                     }
                 }, () -> PrintModel.print("Ingredient not found"));
     }

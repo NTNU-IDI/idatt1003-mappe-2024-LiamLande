@@ -171,4 +171,8 @@ public class Ingredient {
         this.amount += amount;
         this.price += amount * getPpu();
     }
+
+    public LocalDate getExpiryDate() {
+        return expDate;
+    }
 }
