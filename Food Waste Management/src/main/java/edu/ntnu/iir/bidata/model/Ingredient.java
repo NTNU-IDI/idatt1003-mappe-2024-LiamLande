@@ -46,6 +46,7 @@ public class Ingredient {
      * @param amount the amount of the ingredient
      * @param unit   the unit of measurement for the ingredient
      */
+
     public Ingredient(String name, double price, double amount, String unit) {
         this.name = (name);
         setPrice(price);

@@ -90,6 +90,7 @@ public class TUIController {
                 InputValidator.readString("Enter name of cookbook"),
                 InputValidator.readString("Enter description of cookbook"),
                 InputValidator.readList("Enter name of authors (seperated by commas)"));
+
         PrintModel.print("Cookbook initialized, adding a recipe");
         mainCookbook.addRecipe(this.makeRecipe());
     }

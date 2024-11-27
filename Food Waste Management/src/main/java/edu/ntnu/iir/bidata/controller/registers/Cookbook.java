@@ -1,6 +1,7 @@
 package edu.ntnu.iir.bidata.controller.registers;
 
 import edu.ntnu.iir.bidata.controller.validator.ArgumentValidator;
+import edu.ntnu.iir.bidata.controller.validator.InputValidator;
 import edu.ntnu.iir.bidata.model.Recipe;
 import edu.ntnu.iir.bidata.view.PrintModel;
 
@@ -41,6 +42,11 @@ public class Cookbook {
             ArgumentValidator.CookbookValidator(name, description, authors);
         } catch (IllegalArgumentException e) {
             PrintModel.print(e.getMessage());
+            init(
+                    InputValidator.readString("Enter the name of the cookbook"),
+                    InputValidator.readString("Enter the description of the cookbook"),
+                    InputValidator.readList("Enter the authors of the cookbook")
+            );
             return;
         }
         Name = name;
@@ -96,7 +102,7 @@ public class Cookbook {
         return Recipes.stream()
                 .filter(recipe -> recipe.getName().equalsIgnoreCase(name))
                 .findFirst()
-                .orElse(null);
+                .orElse(new Recipe("Not found", "...", "..."));
     }
 
     /**
