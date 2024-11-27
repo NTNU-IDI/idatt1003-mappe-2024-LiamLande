@@ -48,6 +48,7 @@ public class Ingredient {
      */
 
     public Ingredient(String name, double price, double amount, String unit) {
+        ArgumentValidator.NameValidator(name);
         this.name = (name);
         setPrice(price);
         setAmount(amount);

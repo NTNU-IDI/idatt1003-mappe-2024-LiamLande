@@ -99,8 +99,10 @@ public final class PrintModel {
                 (Objects.equals(ingredient.getExpDate(), LocalDate.ofYearDay(9999, 1)) ? "N/A" : ingredient.getExpDate().toString()),
                 ingredient.getPrice()));
 
-        if (ingredient.getExpDate() != null && ingredient.getExpDate().isBefore(LocalDate.now())) {
+        if (!Objects.equals(ingredient.getExpDate(), LocalDate.ofYearDay(9999, 1)) && ingredient.getExpDate().isBefore(LocalDate.now())) {
             PrintModel.print("EXPIRED");
+        } else if (!Objects.equals(ingredient.getExpDate(), LocalDate.ofYearDay(9999, 1)) && ingredient.getExpDate().isBefore(LocalDate.now().plusDays(1))) {
+            PrintModel.print("EXPIRING TOMORROW");
         }
         PrintModel.print("--------------------");
     }

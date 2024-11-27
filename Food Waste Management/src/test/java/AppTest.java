@@ -15,7 +15,6 @@ import edu.ntnu.iir.bidata.controller.TUIController;
 
 public class AppTest {
 
-    private final PrintStream originalOut = System.out;
     private ByteArrayOutputStream outContent;
     private TUIController controller;
 

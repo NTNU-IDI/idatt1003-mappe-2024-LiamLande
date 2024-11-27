@@ -7,6 +7,7 @@ import edu.ntnu.iir.bidata.view.PrintModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * The Cookbook class manages a collection of recipes, including their initialization, addition, removal, and querying.
@@ -125,7 +126,7 @@ public class Cookbook {
 
     public void checkRecipe(FoodStorage food, String RecipeName) {
         Recipe recipe = getRecipe(RecipeName);
-        if (recipe != null) {
+        if (!Objects.equals(recipe.getName(), "Not found")) {
             boolean canMake = recipe.getIngredients().stream()
                     .allMatch(ingredient -> food.findIngredient(ingredient.getName())
                             && ingredient.getAmount() <= food.getIngredient(ingredient.getName()).getAmount());

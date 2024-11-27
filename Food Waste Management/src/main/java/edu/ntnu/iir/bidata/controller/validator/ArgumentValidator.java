@@ -8,6 +8,11 @@ import java.util.ArrayList;
  */
 public class ArgumentValidator {
 
+    private ArgumentValidator() {
+        throw new UnsupportedOperationException("Utility class");
+    }
+
+
     /**
      * Validates the arguments for a cookbook.
      *

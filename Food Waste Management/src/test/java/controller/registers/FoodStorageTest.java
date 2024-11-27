@@ -1,3 +1,5 @@
+package controller.registers;
+
 import edu.ntnu.iir.bidata.controller.validator.InputValidator;
 import edu.ntnu.iir.bidata.view.PrintModel;
 import edu.ntnu.iir.bidata.model.Ingredient;
@@ -59,8 +61,11 @@ public class FoodStorageTest {
     public void testRemoveIngredient() {
         Ingredient ingredient = new Ingredient("Tomato", 10, 5, LocalDate.now(), "pcs");
         foodStorage.addIngredient(ingredient);
+
         foodStorage.removeIngredient(ingredient.getName());
         assertFalse(foodStorage.findIngredient("Tomato"));
+
+
     }
 
     @Test

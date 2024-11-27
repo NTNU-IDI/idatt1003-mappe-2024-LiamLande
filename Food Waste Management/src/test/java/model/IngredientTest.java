@@ -1,3 +1,5 @@
+package model;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -99,6 +101,64 @@ class IngredientTest {
     }
 
     @Test
+    void testRecipeIngredientConstructors() {
+        assertEquals(name, recipeIngredient.getName(), "Names should be equal");
+        assertEquals(price, recipeIngredient.getPrice(), "Price should be equal");
+        assertEquals(amount, recipeIngredient.getAmount(), "Amount should be equal");
+        assertEquals(unit, recipeIngredient.getUnit(), "Unit should be equal");
+    }
+
+    @Test
+    void testRecipeIngredientNameThrows() {
+        IllegalArgumentException exception1 = assertThrows(IllegalArgumentException.class,
+                () -> new Ingredient("", price, amount, unit),
+                "IllegalArgumentException should be thrown if name is empty"
+        );
+        assertEquals(
+                "Name cannot be empty or null", exception1.getMessage(), "Messages should match"
+        );
+        IllegalArgumentException exception2 = assertThrows(IllegalArgumentException.class,
+                () -> new Ingredient(null, price, amount, unit),
+                "IllegalArgumentException should be thrown if name is null"
+        );
+        assertEquals(
+                "Name cannot be empty or null", exception2.getMessage(), "Messages should match"
+        );
+    }
+
+    @Test
+    void testRecipeIngredientPriceThrows() {
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+                () -> new Ingredient(name, -1, amount, unit),
+                "IllegalArgumentException should be thrown if price is negative or zero"
+        );
+        assertEquals("Price cannot be negative or null", e.getMessage(), "Messages should match");
+    }
+
+    @Test
+    void testRecipeIngredientAmountThrows() {
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+                () -> new Ingredient(name, price, 0, unit),
+                "IllegalArgumentException should be thrown if date is null"
+        );
+        assertEquals("Amount cannot be negative or null", e.getMessage(), "Messages should match");
+    }
+
+    @Test
+    void testRecipeIngredientUnitThrows() {
+        IllegalArgumentException e1 = assertThrows(IllegalArgumentException.class,
+                () -> new Ingredient(name, price, amount, ""),
+                "IllegalArgumentException should be thrown if unit is empty"
+        );
+        assertEquals("Unit is not accepted (must be g, ml or pcs)", e1.getMessage(), "Messages should match");
+        IllegalArgumentException e2 = assertThrows(IllegalArgumentException.class,
+                () -> new Ingredient(name, price, amount, null),
+                "IllegalArgumentException should be thrown if unit is null"
+        );
+        assertEquals("Unit is not accepted (must be g, ml or pcs)", e2.getMessage(), "Messages should match");
+    }
+
+    @Test
     void testSetAmount() {
         double newAmount = 5.0;
         ingredient.setAmount(newAmount);
@@ -148,4 +208,6 @@ class IngredientTest {
     void testGetDate() {
         assertEquals(expiryDate, ingredient.getExpiryDate(), "Dates should be equal");
     }
+
+
 }
