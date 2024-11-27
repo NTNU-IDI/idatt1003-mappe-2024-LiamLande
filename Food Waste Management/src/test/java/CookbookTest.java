@@ -73,6 +73,16 @@ public class CookbookTest {
     }
 
     @Test
+    void testGetRecipes() {
+        Recipe recipe = new Recipe("Tomato Soup", "A delicious tomato soup", "1. Boil tomatoes\n2. Add salt\n3. Serve");
+        cookbook.addRecipe(recipe);
+        Recipe recipe2 = new Recipe("Potato Soup", "A delicious potato soup", "1. Boil potatoes\n2. Add salt\n3. Serve");
+        cookbook.addRecipe(recipe2);
+        List<Recipe> recArray = new ArrayList<>(List.of(recipe, recipe2));
+        assertEquals(recArray, cookbook.getRecipes());
+    }
+
+    @Test
     void testGetName() {
         assertEquals("Test Cookbook", cookbook.getName());
     }
