@@ -96,7 +96,7 @@ public final class PrintModel {
                 ingredient.getName(),
                 ingredient.getAmount(),
                 ingredient.getUnit(),
-                (Objects.equals(ingredient.getExpDate(), LocalDate.ofYearDay(9999, 1)) ? "N/A" : ingredient.getExpDate().toString()),
+                (Objects.equals(ingredient.getExpDate(), LocalDate.ofYearDay(9999, 1)) ? "N/A" : (ingredient.getExpDate().toString())),
                 ingredient.getPrice()));
 
         if (!Objects.equals(ingredient.getExpDate(), LocalDate.ofYearDay(9999, 1)) && ingredient.getExpDate().isBefore(LocalDate.now())) {

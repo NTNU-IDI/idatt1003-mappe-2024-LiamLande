@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import edu.ntnu.iir.bidata.App;
 import edu.ntnu.iir.bidata.controller.Initializer;
 import edu.ntnu.iir.bidata.controller.registers.FoodStorage;
 import edu.ntnu.iir.bidata.controller.validator.InputValidator;
@@ -42,5 +43,13 @@ public class AppTest {
         String expectedMenu = "1. Food storage\r\n2. Cookbook\r\n3. Exit\r\n";
 
         assertTrue(outContent.toString().contains(expectedMenu));
+    }
+
+    @Test
+    void testAppMain() {
+        ByteArrayInputStream in = new ByteArrayInputStream("n\n3".getBytes());
+        System.setIn(in);
+        App.main(new String[0]);
+        assertTrue(outContent.toString().contains("1. Food storage\r\n2. Cookbook\r\n3. Exit\r\n"));
     }
 }

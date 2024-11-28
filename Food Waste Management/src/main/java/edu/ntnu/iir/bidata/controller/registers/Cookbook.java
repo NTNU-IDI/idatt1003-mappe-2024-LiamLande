@@ -146,13 +146,10 @@ public class Cookbook {
      * @param food the food storage to check for ingredients
      */
     public void printAvailableRecipes(FoodStorage food) {
-        for (Recipe recipe : Recipes) {
-            boolean canMake = recipe.getIngredients().stream()
-                    .allMatch(ingredient -> food.findIngredient(ingredient.getName())
-                            && ingredient.getAmount() <= food.getIngredient(ingredient.getName()).getAmount());
-            if (canMake) {
-                PrintModel.print(recipe);
-            }
-        }
+        Recipes.stream()
+                .filter(recipe -> recipe.getIngredients().stream()
+                        .allMatch(ingredient -> food.findIngredient(ingredient.getName())
+                                && ingredient.getAmount() <= food.getIngredient(ingredient.getName()).getAmount()))
+                .forEach(PrintModel::print);
     }
 }
