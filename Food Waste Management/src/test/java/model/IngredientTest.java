@@ -48,14 +48,14 @@ class IngredientTest {
                 "IllegalArgumentException should be thrown if name is empty"
         );
         assertEquals(
-                "Name cannot be empty or null", exception1.getMessage(), "Messages should match"
+                "String cannot be empty or null", exception1.getMessage(), "Messages should match"
         );
         IllegalArgumentException exception2 = assertThrows(IllegalArgumentException.class,
                 () -> new Ingredient(null, price, amount, expiryDate, unit),
                 "IllegalArgumentException should be thrown if name is null"
         );
         assertEquals(
-                "Name cannot be empty or null", exception2.getMessage(), "Messages should match"
+                "String cannot be empty or null", exception2.getMessage(), "Messages should match"
         );
     }
 
@@ -115,14 +115,14 @@ class IngredientTest {
                 "IllegalArgumentException should be thrown if name is empty"
         );
         assertEquals(
-                "Name cannot be empty or null", exception1.getMessage(), "Messages should match"
+                "String cannot be empty or null", exception1.getMessage(), "Messages should match"
         );
         IllegalArgumentException exception2 = assertThrows(IllegalArgumentException.class,
                 () -> new Ingredient(null, price, amount, unit),
                 "IllegalArgumentException should be thrown if name is null"
         );
         assertEquals(
-                "Name cannot be empty or null", exception2.getMessage(), "Messages should match"
+                "String cannot be empty or null", exception2.getMessage(), "Messages should match"
         );
     }
 

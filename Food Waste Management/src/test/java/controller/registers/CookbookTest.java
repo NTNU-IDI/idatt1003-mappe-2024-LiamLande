@@ -157,7 +157,7 @@ public class CookbookTest {
         setInput("test\ntest\ntest");
         Cookbook testcookbook = new Cookbook();
         testcookbook.init(null, null, null);
-        assertTrue(outContent.toString().contains("Name cannot be empty or null"));
+        assertTrue(outContent.toString().contains("String cannot be empty or null"));
     }
 
     @Test
