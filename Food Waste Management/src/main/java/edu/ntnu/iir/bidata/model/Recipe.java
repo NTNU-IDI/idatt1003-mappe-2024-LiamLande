@@ -74,4 +74,5 @@ public class Recipe {
     public List<Ingredient> getIngredients() {
         return Ingredients;
     }
+    
 }

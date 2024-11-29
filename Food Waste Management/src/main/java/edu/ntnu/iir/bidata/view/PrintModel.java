@@ -42,15 +42,6 @@ public final class PrintModel {
     }
 
     /**
-     * Prints a given date to the console in the format yyyy/MM/dd.
-     *
-     * @param date the date to print
-     */
-    public static void print(LocalDate date) {
-        PrintModel.print(date.toString());
-    }
-
-    /**
      * Prints a given list of strings to the console.
      *
      * @param list the list of strings to print
@@ -131,8 +122,8 @@ public final class PrintModel {
         PrintModel.print("1.Add Ingredient to your food storage");
         PrintModel.print("2.Find Ingredient in your food storage");
         PrintModel.print("3.Remove amount or whole ingredient");
-        PrintModel.print("4.Print all ingredients (sorted by name)");
-        PrintModel.print("5.Print all expired ingredients");
+        PrintModel.print("4.Print all ingredients (sorted by name) + price");
+        PrintModel.print("5.Print all expired ingredients + price");
         PrintModel.print("6.Back to main menu");
     }
 
@@ -145,7 +136,7 @@ public final class PrintModel {
         PrintModel.print("2. Remove recipe");
         PrintModel.print("3. Find recipe");
         PrintModel.print("4. Print cookbook and all recipes");
-        PrintModel.print("5. Recommend me a recipe");
+        PrintModel.print("5. Recommend me some recipes i can make now!");
         PrintModel.print("6. Check if you have all ingredients for a recipe");
         PrintModel.print("7. Back to main menu");
     }
