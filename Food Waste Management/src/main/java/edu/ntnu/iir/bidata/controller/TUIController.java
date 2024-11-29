@@ -44,13 +44,8 @@ public class TUIController {
                         Name,
                         InputValidator.readDouble("Amount to remove:", 0)
                 );
-
             }
-            case 4 -> {
-                PrintModel.beforeIngredients();
-                mainStorage.getIngredientsSorted().forEach(PrintModel::print);
-                PrintModel.afterIngredients();
-            }
+            case 4 -> printAllIngredientsSorted();
             case 5 -> mainStorage.printExpiredIngredients();
             case 6 -> {
                 this.start();
@@ -61,6 +56,14 @@ public class TUIController {
 
         }
         this.foodStorageMenu();
+    }
+
+    private void printAllIngredientsSorted() {
+        PrintModel.beforeIngredients();
+        mainStorage.getIngredientsSorted().forEach(PrintModel::print);
+        PrintModel.afterIngredients();
+        double total = mainStorage.getIngredientsSorted().stream().mapToDouble(Ingredient::getPrice).sum();
+        PrintModel.print("Total price of all ingredients: " + total);
     }
 
     /**
