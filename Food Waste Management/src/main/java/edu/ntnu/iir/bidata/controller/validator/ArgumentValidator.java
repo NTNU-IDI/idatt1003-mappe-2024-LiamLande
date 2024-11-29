@@ -22,8 +22,8 @@ public class ArgumentValidator {
      * @throws IllegalArgumentException if any argument is invalid
      */
     public static void CookbookValidator(String name, String description, ArrayList<String> authors) {
-        NameValidator(name);
-        NameValidator(description);
+        StringValidator(name);
+        StringValidator(description);
         AuthorsValidator(authors);
     }
 
@@ -78,7 +78,7 @@ public class ArgumentValidator {
      */
     public static void RecipeIngredientValidator(String name, double price, double amount, String unit)
             throws IllegalArgumentException {
-        NameValidator(name);
+        StringValidator(name);
         PriceValidator(price);
         AmountValidator(amount);
         UnitValidator(unit);
@@ -130,44 +130,20 @@ public class ArgumentValidator {
      */
     public static void RecipeValidator(String name, String description, String instructions)
             throws IllegalArgumentException {
-        NameValidator(name);
-        RecipeDescriptionValidator(description);
-        RecipeInstructionValidator(instructions);
+        StringValidator(name);
+        StringValidator(description);
+        StringValidator(instructions);
     }
 
     /**
-     * Validates the name of an ingredient, recipe, or cookbook.
+     * Validates a string of an ingredient, recipe, or cookbook.
      *
-     * @param name the name to validate
-     * @throws IllegalArgumentException if the name is null or empty
+     * @param string the string to validate
+     * @throws IllegalArgumentException if the string is null or empty
      */
-    public static void NameValidator(String name) {
-        if (name == null || name.isEmpty()) {
-            throw new IllegalArgumentException("Name cannot be empty or null");
-        }
-    }
-
-    /**
-     * Validates the description of a recipe.
-     *
-     * @param description the description to validate
-     * @throws IllegalArgumentException if the description is null or empty
-     */
-    private static void RecipeDescriptionValidator(String description) {
-        if (description == null || description.isEmpty()) {
-            throw new IllegalArgumentException("Description cannot be empty or null");
-        }
-    }
-
-    /**
-     * Validates the instructions of a recipe.
-     *
-     * @param instructions the instructions to validate
-     * @throws IllegalArgumentException if the instructions are null or empty
-     */
-    private static void RecipeInstructionValidator(String instructions) {
-        if (instructions == null || instructions.isEmpty()) {
-            throw new IllegalArgumentException("Instructions cannot be empty");
+    public static void StringValidator(String string) {
+        if (string == null || string.isEmpty()) {
+            throw new IllegalArgumentException("String cannot be empty or null");
         }
     }
 }

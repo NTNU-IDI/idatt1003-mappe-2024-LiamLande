@@ -27,7 +27,7 @@ public class Ingredient {
      */
     public Ingredient(String name, double price, double amount, LocalDate expDate, String unit)
             throws IllegalArgumentException {
-        ArgumentValidator.NameValidator(name);
+        ArgumentValidator.StringValidator(name);
         this.name = (name);
         setPrice(price);
         setAmount(amount);
@@ -48,7 +48,7 @@ public class Ingredient {
      */
 
     public Ingredient(String name, double price, double amount, String unit) {
-        ArgumentValidator.NameValidator(name);
+        ArgumentValidator.StringValidator(name);
         this.name = (name);
         setPrice(price);
         setAmount(amount);

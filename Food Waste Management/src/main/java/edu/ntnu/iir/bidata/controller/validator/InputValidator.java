@@ -91,7 +91,14 @@ public final class InputValidator {
      */
     public static String readString(String prompt) {
         PrintModel.print(prompt);
-        return S.nextLine();
+        String string = S.nextLine();
+        try {
+            ArgumentValidator.StringValidator(string);
+        } catch (IllegalArgumentException e) {
+            PrintModel.print(e.getMessage());
+            return readString(prompt);
+        }
+        return string;
     }
 
     /**
