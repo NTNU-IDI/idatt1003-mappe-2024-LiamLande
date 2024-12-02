@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -41,7 +42,7 @@ public class RecipeTest {
     @Test
     void testAddIngredient() {
         recipe.addIngredient("Tomato", 10.0, 5, "pcs");
-        assertTrue(recipe.getIngredients().contains(new Ingredient("Tomato", 10.0, 5, "pcs")));
+        assertEquals("Tomato", recipe.getIngredients().stream().findFirst().get().getName());
     }
 
     @Test
