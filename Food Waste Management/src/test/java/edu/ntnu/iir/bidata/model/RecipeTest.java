@@ -1,14 +1,11 @@
-package model;
+package edu.ntnu.iir.bidata.model;
 
-import edu.ntnu.iir.bidata.model.Ingredient;
-import edu.ntnu.iir.bidata.model.Recipe;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
-import java.util.Objects;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 public class RecipeTest {
     private Recipe recipe;

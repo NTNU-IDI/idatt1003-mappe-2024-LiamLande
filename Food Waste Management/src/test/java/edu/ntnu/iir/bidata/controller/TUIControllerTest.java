@@ -1,4 +1,4 @@
-package controller;
+package edu.ntnu.iir.bidata.controller;
 
 import edu.ntnu.iir.bidata.controller.TUIController;
 import edu.ntnu.iir.bidata.controller.validator.InputValidator;

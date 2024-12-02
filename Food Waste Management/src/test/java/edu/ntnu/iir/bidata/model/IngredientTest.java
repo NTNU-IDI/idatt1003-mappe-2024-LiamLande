@@ -1,4 +1,4 @@
-package model;
+package edu.ntnu.iir.bidata.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

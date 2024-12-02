@@ -112,13 +112,14 @@ public final class InputValidator {
         int year = InputValidator.readInt("Enter year:", 0);
         int month = InputValidator.readInt("Enter month:", 12);
         int day = InputValidator.readInt("Enter day:", 31);
+        LocalDate FinalDate;
         try {
-            LocalDate.of(year, month, day);
+            FinalDate = LocalDate.of(year, month, day);
         } catch (Exception e) {
             PrintModel.print("Invalid date, try again");
             return readDate(prompt);
         }
-        return LocalDate.of(year, month, day);
+        return FinalDate;
     }
 
     /**

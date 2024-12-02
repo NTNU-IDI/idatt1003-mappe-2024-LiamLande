@@ -1,4 +1,4 @@
-package controller.registers;
+package edu.ntnu.iir.bidata.controller.registers;
 
 import edu.ntnu.iir.bidata.controller.validator.InputValidator;
 import edu.ntnu.iir.bidata.view.PrintModel;

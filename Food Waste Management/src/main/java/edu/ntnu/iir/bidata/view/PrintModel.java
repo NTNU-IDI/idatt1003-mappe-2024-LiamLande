@@ -5,7 +5,6 @@ import edu.ntnu.iir.bidata.model.Recipe;
 import edu.ntnu.iir.bidata.controller.registers.Cookbook;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -110,9 +109,7 @@ public final class PrintModel {
         PrintModel.print("Authors:");
         PrintModel.print(cookbook.getAuthors());
         PrintModel.print("Recipes:");
-        for (Recipe recipe : cookbook.getRecipes()) {
-            PrintModel.print(recipe);
-        }
+        cookbook.getRecipes().forEach(PrintModel::print);
     }
 
     /**

@@ -1,15 +1,14 @@
+package edu.ntnu.iir.bidata;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import edu.ntnu.iir.bidata.App;
 import edu.ntnu.iir.bidata.controller.Initializer;
-import edu.ntnu.iir.bidata.controller.registers.FoodStorage;
 import edu.ntnu.iir.bidata.controller.validator.InputValidator;
-import edu.ntnu.iir.bidata.view.PrintModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import edu.ntnu.iir.bidata.controller.TUIController;
