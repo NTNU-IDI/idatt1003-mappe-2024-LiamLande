@@ -21,7 +21,7 @@ public class AppTest {
 
     protected void setInput(String input) {
         Scanner scanner = new Scanner(input);
-        new InputValidator(scanner, controller);
+        InputValidator.setScanner(scanner);
     }
 
     @BeforeEach

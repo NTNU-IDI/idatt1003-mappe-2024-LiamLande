@@ -3,8 +3,6 @@ package edu.ntnu.iir.bidata.controller.registers;
 import edu.ntnu.iir.bidata.controller.validator.InputValidator;
 import edu.ntnu.iir.bidata.view.PrintModel;
 import edu.ntnu.iir.bidata.model.Ingredient;
-import edu.ntnu.iir.bidata.controller.TUIController;
-import edu.ntnu.iir.bidata.controller.registers.FoodStorage;
 
 
 import java.io.ByteArrayOutputStream;
@@ -20,20 +18,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class FoodStorageTest {
 
-    private TUIController controller;
     private FoodStorage foodStorage;
-    private final PrintStream originalOut = System.out;
     private ByteArrayOutputStream outContent;
-    private PrintModel view;
 
     protected void setInput(String input) {
         Scanner scanner = new Scanner(input);
-        new InputValidator(scanner, controller);
+        InputValidator.setScanner(scanner);
     }
 
     @BeforeEach
     void setUp() {
-        controller = new TUIController();
         foodStorage = new FoodStorage();
         outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));

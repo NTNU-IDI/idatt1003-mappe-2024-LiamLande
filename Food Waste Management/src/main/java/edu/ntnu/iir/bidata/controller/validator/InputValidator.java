@@ -1,27 +1,26 @@
 package edu.ntnu.iir.bidata.controller.validator;
 
-import edu.ntnu.iir.bidata.controller.TUIController;
 import edu.ntnu.iir.bidata.view.PrintModel;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
+
 
 /**
  * The InputValidator class provides static methods for validating and reading user input.
  */
 public final class InputValidator {
-    TUIController controller;
     private static Scanner S;
 
     /**
-     * Constructs an InputValidator with the specified Scanner and TUIController.
+     * Sets the scanner to be used for reading input.
      *
-     * @param scanner    the Scanner to be used for reading input
-     * @param controller the TUIController to be used for validation
+     * @param scanner the Scanner to be used for reading input
      */
-    public InputValidator(Scanner scanner, TUIController controller) {
+    public static void setScanner(Scanner scanner) {
         InputValidator.S = scanner;
-        this.controller = controller;
     }
 
     /**
@@ -54,7 +53,6 @@ public final class InputValidator {
 
         return a;
     }
-
 
     /**
      * Reads a double from the user with a prompt and an upper bound.

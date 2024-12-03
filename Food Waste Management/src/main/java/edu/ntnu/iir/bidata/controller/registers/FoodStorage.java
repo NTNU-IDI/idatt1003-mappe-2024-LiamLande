@@ -14,7 +14,7 @@ import edu.ntnu.iir.bidata.view.PrintModel;
  * The FoodStorage class manages a collection of ingredients, allowing for adding, removing, and querying ingredients.
  */
 public class FoodStorage {
-    private final ArrayList<Ingredient> ingredients;
+    private final List<Ingredient> ingredients;
 
     /**
      * Constructs a new FoodStorage with an empty list of ingredients.

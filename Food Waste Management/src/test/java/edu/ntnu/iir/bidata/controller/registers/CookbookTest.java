@@ -1,12 +1,8 @@
 package edu.ntnu.iir.bidata.controller.registers;
 
-import edu.ntnu.iir.bidata.controller.TUIController;
-import edu.ntnu.iir.bidata.controller.registers.Cookbook;
-import edu.ntnu.iir.bidata.controller.registers.FoodStorage;
 import edu.ntnu.iir.bidata.controller.validator.InputValidator;
 import edu.ntnu.iir.bidata.model.Ingredient;
 import edu.ntnu.iir.bidata.model.Recipe;
-import edu.ntnu.iir.bidata.view.PrintModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,20 +15,16 @@ import java.util.Scanner;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CookbookTest {
-    private TUIController controller;
     private Cookbook cookbook;
-    private final PrintStream originalOut = System.out;
     private ByteArrayOutputStream outContent;
-    private PrintModel view;
 
     protected void setInput(String input) {
         Scanner scanner = new Scanner(input);
-        new InputValidator(scanner, controller);
+        InputValidator.setScanner(scanner);
     }
 
     @BeforeEach
     void setUp() {
-        controller = new TUIController();
         cookbook = new Cookbook();
         outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));

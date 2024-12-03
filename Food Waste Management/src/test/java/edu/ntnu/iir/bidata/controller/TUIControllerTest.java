@@ -1,6 +1,5 @@
 package edu.ntnu.iir.bidata.controller;
 
-import edu.ntnu.iir.bidata.controller.TUIController;
 import edu.ntnu.iir.bidata.controller.validator.InputValidator;
 import edu.ntnu.iir.bidata.model.Ingredient;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,7 +19,7 @@ public class TUIControllerTest {
 
     protected void setInput(String input) {
         Scanner scanner = new Scanner(input);
-        new InputValidator(scanner, controller);
+        InputValidator.setScanner(scanner);
     }
 
     @BeforeEach

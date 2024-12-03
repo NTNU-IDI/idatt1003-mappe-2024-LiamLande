@@ -165,7 +165,9 @@ public class TUIController {
         }
         Recipe NewRecipe = new Recipe(name, description, instructions);
 
-        int choice = InputValidator.readInt("How many ingredients do you want to add to the recipe?", 0);
+        int choice = InputValidator.readInt(
+                "How many ingredients do you want to add to the recipe?",
+                0);
         for (int i = 0; i < choice; i++) {
             String name_ing = InputValidator.readString("Enter name of ingredient");
             String unit = InputValidator.readUnit("Enter unit of ingredient");

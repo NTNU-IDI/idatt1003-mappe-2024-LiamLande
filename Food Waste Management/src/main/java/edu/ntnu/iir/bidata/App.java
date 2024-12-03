@@ -11,7 +11,8 @@ import java.util.Scanner;
  */
 public class App {
     /**
-     * The main method initializes the application and starts the user interface.
+     * The main method initializes the
+     * application and starts the user interface.
      *
      * @param args command-line arguments (not used)
      */
@@ -19,7 +20,7 @@ public class App {
         TUIController Controller = new TUIController();
         Initializer Initializer = new Initializer(Controller);
         Scanner scanner = new Scanner(System.in);
-        new InputValidator(scanner, Controller);
+        InputValidator.setScanner(scanner);
         Initializer.init();
         Controller.start();
     }

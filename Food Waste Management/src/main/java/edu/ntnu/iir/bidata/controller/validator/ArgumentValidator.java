@@ -61,7 +61,8 @@ public class ArgumentValidator {
      * Validates the expiration date of an ingredient.
      *
      * @param expDate the expiration date
-     * @throws IllegalArgumentException if the expiration date is null or more than 14 days in the past
+     * @throws IllegalArgumentException if the
+     *                                  expiration date is null or more than 14 days in the past
      */
     public static void ExpDateValidator(LocalDate expDate) {
         if (expDate == null || expDate.isBefore(LocalDate.now().minusDays(14))) {
