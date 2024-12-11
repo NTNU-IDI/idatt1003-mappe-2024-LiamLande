@@ -119,6 +119,7 @@ public class CookbookTest {
         recipe.addIngredient("Salt", 1, 1, "g");
         recipe.addIngredient("Pepper", 1, 1, "g");
         FoodStorage food = new FoodStorage();
+        food.addIngredient(new Ingredient("Tomato", 5, 1, "pcs"));
 
         cookbook.checkRecipe(food, "Tomato Soup");
 

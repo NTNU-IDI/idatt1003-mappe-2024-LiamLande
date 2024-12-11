@@ -8,6 +8,10 @@ import java.util.Scanner;
 
 /**
  * The App class serves as the entry point for the application.
+ *
+ * @Since 0.1
+ * @Version
+ * @Author Liam Schreiner Lande
  */
 public class App {
     /**
