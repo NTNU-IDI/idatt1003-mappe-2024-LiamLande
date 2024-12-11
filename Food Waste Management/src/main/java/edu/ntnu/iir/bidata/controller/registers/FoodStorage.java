@@ -11,7 +11,11 @@ import edu.ntnu.iir.bidata.model.Ingredient;
 import edu.ntnu.iir.bidata.view.PrintModel;
 
 /**
- * The FoodStorage class manages a collection of ingredients, allowing for adding, removing, and querying ingredients.
+ * <h1>FoodStorage</h1>
+ * The FoodStorage class manages a collection of <code>Ingredient</code> objects, allowing for adding,
+ * removing, and querying ingredients.
+ *
+ * @Since 0.1
  */
 public class FoodStorage {
     private final List<Ingredient> ingredients;
@@ -57,7 +61,7 @@ public class FoodStorage {
      * Retrieves an ingredient from the storage by its name.
      *
      * @param Name the name of the ingredient to retrieve
-     * @return the ingredient if found, otherwise null
+     * @return the <code>Ingredient</code> if found, otherwise null
      */
     public Ingredient getIngredient(String Name) {
         return ingredients.stream()
@@ -70,7 +74,7 @@ public class FoodStorage {
      * Checks if an ingredient exists in the storage by its name.
      *
      * @param name the name of the ingredient to check
-     * @return true if the ingredient exists, otherwise false
+     * @return <code>true</code> if the <code>ingredient</code> exists, otherwise <code>false</code>
      */
     public boolean findIngredient(String name) {
         PrintModel.print("Checking for ingredient: " + name);
@@ -114,7 +118,9 @@ public class FoodStorage {
     }
 
     /**
-     * Prints all ingredients in the storage.
+     * Retrieves all ingredients in the storage sorted by name.
+     *
+     * @return a <code>List</code> of all <code>Ingredient</code> objects sorted by name
      */
     public List<Ingredient> getIngredientsSorted() {
         return ingredients.stream()

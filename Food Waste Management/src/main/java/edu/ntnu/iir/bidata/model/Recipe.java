@@ -6,7 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents a recipe with a name, description, instructions, and ingredients.
+ * <h1>Recipe</h1>
+ * <p>
+ * Represents a recipe with a name, description, instructions, ingredients and portions.
+ *
+ * @Since 0.1
  */
 public class Recipe {
     private final String Name;
@@ -58,6 +62,11 @@ public class Recipe {
         return Name;
     }
 
+    /**
+     * Returns the number of portions the recipe yields.
+     *
+     * @return the number of portions
+     */
     public int getPortions() {
         return Portions;
     }

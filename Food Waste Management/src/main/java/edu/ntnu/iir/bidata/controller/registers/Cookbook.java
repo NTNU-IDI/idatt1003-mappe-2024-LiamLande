@@ -8,11 +8,19 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * The Cookbook class manages a collection of recipes, including their initialization, addition, removal, and querying.
+ * <h1>Cookbook</h1>
+ * The Cookbook class manages a collection of <code>Recipe</code> objects,
+ * including their initialization, addition, removal, and querying.
+ *
+ * @Since 0.1
  */
 public class Cookbook {
     private final List<Recipe> Recipes;
 
+
+    /**
+     * Constructs a new Cookbook with an empty list of recipes.
+     */
     public Cookbook() {
         Recipes = new ArrayList<>();
     }

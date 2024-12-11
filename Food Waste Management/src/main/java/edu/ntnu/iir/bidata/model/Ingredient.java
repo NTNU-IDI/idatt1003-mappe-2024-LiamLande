@@ -6,7 +6,10 @@ import edu.ntnu.iir.bidata.view.PrintModel;
 import java.time.LocalDate;
 
 /**
+ * <h1>Ingredient</h1>
  * Represents an ingredient with a name, price, amount, expiration date, and unit.
+ *
+ * @Since 0.1
  */
 public class Ingredient {
     private final String name;
@@ -121,6 +124,11 @@ public class Ingredient {
         this.amount = amount;
     }
 
+    /**
+     * Sets the price per unit of the ingredient.
+     *
+     * @param ppu the new price per unit of the ingredient
+     */
     public void setPpu(double ppu) {
         ArgumentValidator.PriceValidator(ppu);
         this.ppu = ppu;
@@ -171,8 +179,5 @@ public class Ingredient {
         this.amount += amount;
         this.price += amount * getPpu();
     }
-
-    public LocalDate getExpiryDate() {
-        return expDate;
-    }
+    
 }

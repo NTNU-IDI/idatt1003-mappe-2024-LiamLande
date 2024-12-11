@@ -7,11 +7,15 @@ import edu.ntnu.iir.bidata.controller.validator.InputValidator;
 import java.util.Scanner;
 
 /**
+ * <h1>App</h1>
  * The App class serves as the entry point for the application.
+ * <p>
+ * Initializes the application and starts the user interface.
+ * </p>
  *
  * @Since 0.1
- * @Version
- * @Author Liam Schreiner Lande
+ * @Version 2.0
+ * @Author Liam Lande
  */
 public class App {
     /**

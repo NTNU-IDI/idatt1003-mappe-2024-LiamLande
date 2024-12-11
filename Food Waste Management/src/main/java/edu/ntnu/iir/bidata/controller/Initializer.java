@@ -10,7 +10,10 @@ import edu.ntnu.iir.bidata.view.PrintModel;
 import java.time.LocalDate;
 
 /**
- * The Initializer class is responsible for initializing the application, including loading test data if required.
+ * <h1>Initializer</h1>
+ * The <code>Initializer</code> class is responsible for initializing the application, including loading test data if required.
+ *
+ * @Since 1.0
  */
 public class Initializer {
     private final TUIController controller;

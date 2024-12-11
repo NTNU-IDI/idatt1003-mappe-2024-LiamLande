@@ -8,7 +8,15 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 /**
+ * <h1>PrintModel</h1>
  * The PrintModel class provides static methods to print various types of data to the console.
+ * <p>
+ * This class is responsible for printing welcome messages, recipes, ingredients, cookbooks, and menus.
+ * </p>
+ * <p>
+ * The <code>PrintModel</code> class is also the only class that interacts with the console output.
+ *
+ * @Since 1.0
  */
 public final class PrintModel {
 
@@ -58,11 +66,17 @@ public final class PrintModel {
         print("--------------------");
     }
 
+    /**
+     * Prints the ingredients header to the console.
+     */
     public static void beforeIngredients() {
         print("--------------------");
         print(String.format("%-20s %-10s %-10s %-15s %-10s", "Name", "Amount", "Unit", "Exp Date", "Price"));
     }
 
+    /**
+     * Prints the ingredients footer to the console.
+     */
     public static void afterIngredients() {
         print("--------------------");
     }

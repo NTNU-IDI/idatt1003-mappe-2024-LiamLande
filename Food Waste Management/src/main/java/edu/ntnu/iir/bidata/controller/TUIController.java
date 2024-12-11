@@ -11,7 +11,11 @@ import edu.ntnu.iir.bidata.model.Ingredient;
 import edu.ntnu.iir.bidata.model.Recipe;
 
 /**
- * The TUIController class handles the text-based user interface for the application.
+ * <h1>TUIController</h1>
+ * <p>
+ * The <code>TUIController</code> class handles the text-based user interface for the application.
+ *
+ * @Since 0.1
  */
 public class TUIController {
     private FoodStorage mainStorage;
@@ -52,6 +56,10 @@ public class TUIController {
         this.foodStorageMenu();
     }
 
+
+    /**
+     * Removes an amount of an ingredient or the whole ingredient from the main storage.
+     */
     private void removeAmountOrWhole() {
         String Name = InputValidator.readString("Name of Ingredient:");
         mainStorage.removeIngredientAmount(
@@ -60,6 +68,9 @@ public class TUIController {
         );
     }
 
+    /**
+     * Prints all ingredients in the main storage sorted by name and their total price.
+     */
     private void printAllIngredientsSorted() {
         PrintModel.beforeIngredients();
         mainStorage.getIngredientsSorted().forEach(PrintModel::print);

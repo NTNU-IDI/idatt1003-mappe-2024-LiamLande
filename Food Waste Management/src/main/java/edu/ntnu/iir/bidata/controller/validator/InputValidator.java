@@ -7,7 +7,12 @@ import java.util.Scanner;
 
 
 /**
- * The InputValidator class provides static methods for validating and reading user input.
+ * <h1>InputValidator</h1>
+ * <p>
+ * The InputValidator class provides static
+ * methods for validating and reading user input.
+ *
+ * @Since 1.2
  */
 public final class InputValidator {
     private static Scanner S;

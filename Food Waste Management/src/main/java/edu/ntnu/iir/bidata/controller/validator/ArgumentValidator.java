@@ -3,7 +3,12 @@ package edu.ntnu.iir.bidata.controller.validator;
 import java.time.LocalDate;
 
 /**
- * The ArgumentValidator class provides static methods for validating various arguments related to ingredients, recipes, and cookbooks.
+ * <h1>ArgumentValidator</h1>
+ * <p>
+ * The ArgumentValidator class provides static methods for validating various
+ * arguments related to ingredients, recipes, and cookbooks.
+ *
+ * @Since 1.0
  */
 public class ArgumentValidator {
 
