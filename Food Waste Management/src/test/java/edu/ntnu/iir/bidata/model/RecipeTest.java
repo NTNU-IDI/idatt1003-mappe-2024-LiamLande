@@ -12,13 +12,15 @@ public class RecipeTest {
     private String name;
     private String description;
     private String instructions;
+    private int portions;
 
     @BeforeEach
     void setUp() {
         name = "Pasta";
         description = "Boil pasta";
         instructions = "1. Boil pasta\n2. Serve";
-        recipe = new Recipe(name, description, instructions);
+        portions = 5;
+        recipe = new Recipe(name, description, instructions, portions);
     }
 
     @Test
@@ -45,14 +47,14 @@ public class RecipeTest {
     @Test
     void testNameThrows() {
         IllegalArgumentException exception1 = assertThrows(IllegalArgumentException.class,
-                () -> new Recipe("", description, instructions),
+                () -> new Recipe("", description, instructions, portions),
                 "IllegalArgumentException should be thrown if name is empty"
         );
         assertEquals(
                 "String cannot be empty or null", exception1.getMessage(), "Messages should match"
         );
         IllegalArgumentException exception2 = assertThrows(IllegalArgumentException.class,
-                () -> new Recipe(null, description, instructions),
+                () -> new Recipe(null, description, instructions, portions),
                 "IllegalArgumentException should be thrown if name is null"
         );
         assertEquals(
@@ -63,14 +65,14 @@ public class RecipeTest {
     @Test
     void testDescriptionThrows() {
         IllegalArgumentException exception1 = assertThrows(IllegalArgumentException.class,
-                () -> new Recipe(name, "", instructions),
+                () -> new Recipe(name, "", instructions, portions),
                 "IllegalArgumentException should be thrown if description is empty"
         );
         assertEquals(
                 "String cannot be empty or null", exception1.getMessage(), "Messages should match"
         );
         IllegalArgumentException exception2 = assertThrows(IllegalArgumentException.class,
-                () -> new Recipe(name, null, instructions),
+                () -> new Recipe(name, null, instructions, portions),
                 "IllegalArgumentException should be thrown if description is null"
         );
         assertEquals(
@@ -81,18 +83,36 @@ public class RecipeTest {
     @Test
     void testInstructionsThrows() {
         IllegalArgumentException exception1 = assertThrows(IllegalArgumentException.class,
-                () -> new Recipe(name, description, ""),
+                () -> new Recipe(name, description, "", portions),
                 "IllegalArgumentException should be thrown if instructions is empty"
         );
         assertEquals(
                 "String cannot be empty or null", exception1.getMessage(), "Messages should match"
         );
         IllegalArgumentException exception2 = assertThrows(IllegalArgumentException.class,
-                () -> new Recipe(name, description, null),
+                () -> new Recipe(name, description, null, portions),
                 "IllegalArgumentException should be thrown if instructions is null"
         );
         assertEquals(
                 "String cannot be empty or null", exception2.getMessage(), "Messages should match"
+        );
+    }
+
+    @Test
+    void testPortionThrows() {
+        IllegalArgumentException exception1 = assertThrows(IllegalArgumentException.class,
+                () -> new Recipe(name, description, instructions, 0),
+                "IllegalArgumentException should be thrown if amount is null"
+        );
+        assertEquals(
+                "Amount cannot be negative or null", exception1.getMessage(), "Messages should match"
+        );
+        IllegalArgumentException exception2 = assertThrows(IllegalArgumentException.class,
+                () -> new Recipe(name, description, instructions, -1),
+                "IllegalArgumentException should be thrown if instructions is below 0"
+        );
+        assertEquals(
+                "Amount cannot be negative or null", exception2.getMessage(), "Messages should match"
         );
     }
 

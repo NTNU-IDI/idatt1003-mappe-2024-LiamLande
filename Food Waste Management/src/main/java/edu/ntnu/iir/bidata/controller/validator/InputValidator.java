@@ -3,8 +3,6 @@ package edu.ntnu.iir.bidata.controller.validator;
 import edu.ntnu.iir.bidata.view.PrintModel;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 
@@ -120,24 +118,6 @@ public final class InputValidator {
         return FinalDate;
     }
 
-    /**
-     * Reads a list of strings from the user with a prompt.
-     *
-     * @param prompt the prompt to display to the user
-     * @return a list of strings input by the user
-     */
-    public static ArrayList<String> readList(String prompt) {
-        PrintModel.print(prompt);
-        PrintModel.print("Separate, values, with, a, comma");
-
-        String input = S.nextLine();
-        ArrayList<String> List = new ArrayList<>(Arrays.asList(input.split(",")));
-        if (List.isEmpty()) {
-            PrintModel.print("Invalid input, try again");
-            return readList(prompt);
-        }
-        return List;
-    }
 
     /**
      * Reads a boolean value from the user.

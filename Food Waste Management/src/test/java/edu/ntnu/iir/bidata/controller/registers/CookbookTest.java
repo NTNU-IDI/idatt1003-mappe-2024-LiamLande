@@ -28,34 +28,20 @@ public class CookbookTest {
         cookbook = new Cookbook();
         outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        cookbook.init("Test Cookbook", "A cookbook for testing", new ArrayList<>(List.of("Liam Lande", "Markus Aurelius")));
 
-    }
-
-    @Test
-    void testIsInitialized() {
-        assertTrue(cookbook.isInitialized());
-    }
-
-    @Test
-    void testIsInitializedNegative() {
-        Cookbook testCookbook = new Cookbook();
-        assertFalse(testCookbook.isInitialized());
-        testCookbook.init("Test Cookbook", "A cookbook for testing", new ArrayList<>(List.of("Liam Lande", "Markus Aurelius")));
-        assertTrue(testCookbook.isInitialized());
     }
 
 
     @Test
     void testAddRecipe() {
-        Recipe recipe = new Recipe("Tomato Soup", "A delicious tomato soup", "1. Boil tomatoes\n2. Add salt\n3. Serve");
+        Recipe recipe = new Recipe("Tomato Soup", "A delicious tomato soup", "1. Boil tomatoes\n2. Add salt\n3. Serve", 5);
         cookbook.addRecipe(recipe);
         assertEquals("Tomato Soup", cookbook.getRecipe("Tomato Soup").getName());
     }
 
     @Test
     void testRemoveRecipe() {
-        Recipe recipe = new Recipe("Tomato Soup", "A delicious tomato soup", "1. Boil tomatoes\n2. Add salt\n3. Serve");
+        Recipe recipe = new Recipe("Tomato Soup", "A delicious tomato soup", "1. Boil tomatoes\n2. Add salt\n3. Serve", 5);
         cookbook.addRecipe(recipe);
         cookbook.removeRecipe("Tomato Soup");
         assertEquals("Not found", cookbook.getRecipe("Tomato Soup").getName());
@@ -75,86 +61,25 @@ public class CookbookTest {
 
     @Test
     void testGetRecipe() {
-        Recipe recipe = new Recipe("Tomato Soup", "A delicious tomato soup", "1. Boil tomatoes\n2. Add salt\n3. Serve");
+        Recipe recipe = new Recipe("Tomato Soup", "A delicious tomato soup", "1. Boil tomatoes\n2. Add salt\n3. Serve", 5);
         cookbook.addRecipe(recipe);
         assertEquals(recipe, cookbook.getRecipe("Tomato Soup"));
     }
 
     @Test
     void testGetRecipes() {
-        Recipe recipe = new Recipe("Tomato Soup", "A delicious tomato soup", "1. Boil tomatoes\n2. Add salt\n3. Serve");
+        Recipe recipe = new Recipe("Tomato Soup", "A delicious tomato soup", "1. Boil tomatoes\n2. Add salt\n3. Serve", 5);
         cookbook.addRecipe(recipe);
-        Recipe recipe2 = new Recipe("Potato Soup", "A delicious potato soup", "1. Boil potatoes\n2. Add salt\n3. Serve");
+        Recipe recipe2 = new Recipe("Potato Soup", "A delicious potato soup", "1. Boil potatoes\n2. Add salt\n3. Serve", 5);
         cookbook.addRecipe(recipe2);
         List<Recipe> recArray = new ArrayList<>(List.of(recipe, recipe2));
         assertEquals(recArray, cookbook.getRecipes());
     }
 
-    @Test
-    void testGetName() {
-        assertEquals("Test Cookbook", cookbook.getName());
-    }
-
-    @Test
-    void testGetDescription() {
-        assertEquals("A cookbook for testing", cookbook.getDescription());
-    }
-
-    @Test
-    void testGetAuthors() {
-        assertEquals(2, cookbook.getAuthors().size());
-    }
-
-    @Test
-    void testInitWithNullName() {
-        Cookbook testcookbook = new Cookbook();
-        setInput("test\ntest\ntest, test, test");
-        testcookbook.init(null, "A cookbook for testing", new ArrayList<>(List.of("Liam Lande", "Markus Aurelius")));
-        assertEquals("test", testcookbook.getName());
-        assertEquals("test", testcookbook.getDescription());
-        assertEquals(3, testcookbook.getAuthors().size());
-    }
-
-    @Test
-    void testInitWithNullDescription() {
-        Cookbook testcookbook = new Cookbook();
-        setInput("test\ntest\ntest, test, test");
-        testcookbook.init("Test Cookbook", null, new ArrayList<>(List.of("Liam Lande", "Markus Aurelius")));
-        assertEquals("test", testcookbook.getName());
-        assertEquals("test", testcookbook.getDescription());
-        assertEquals(3, testcookbook.getAuthors().size());
-    }
-
-    @Test
-    void testInitWithNullList() {
-        Cookbook testcookbook = new Cookbook();
-        setInput("test\ntest\ntest, test, test");
-        testcookbook.init("Test Cookbook", "A cookbook for testing", null);
-        assertEquals("test", testcookbook.getName());
-        assertEquals("test", testcookbook.getDescription());
-        assertEquals(3, testcookbook.getAuthors().size());
-    }
-
-    @Test
-    void testInitWithGoodValues() {
-        Cookbook testcookbook = new Cookbook();
-        testcookbook.init("Test Cookbook", "A cookbook for testing", new ArrayList<>(List.of("Liam Lande", "Markus Aurelius")));
-        assertEquals("Test Cookbook", testcookbook.getName());
-        assertEquals("A cookbook for testing", testcookbook.getDescription());
-        assertEquals(2, testcookbook.getAuthors().size());
-    }
-
-    @Test
-    void testInitExceptions() {
-        setInput("test\ntest\ntest");
-        Cookbook testcookbook = new Cookbook();
-        testcookbook.init(null, null, null);
-        assertTrue(outContent.toString().contains("String cannot be empty or null"));
-    }
 
     @Test
     void testCheckRecipeWithGoodIngredients() {
-        Recipe recipe = new Recipe("Tomato Soup", "A delicious tomato soup", "1. Boil tomatoes\n2. Add salt\n3. Serve");
+        Recipe recipe = new Recipe("Tomato Soup", "A delicious tomato soup", "1. Boil tomatoes\n2. Add salt\n3. Serve", 5);
         cookbook.addRecipe(recipe);
         recipe.addIngredient("Tomato", 10, 5, "pcs");
         recipe.addIngredient("Salt", 1, 1, "g");
@@ -171,7 +96,7 @@ public class CookbookTest {
 
     @Test
     void testCheckRecipeWithBadIngredients() {
-        Recipe recipe = new Recipe("Tomato Soup", "A delicious tomato soup", "1. Boil tomatoes\n2. Add salt\n3. Serve");
+        Recipe recipe = new Recipe("Tomato Soup", "A delicious tomato soup", "1. Boil tomatoes\n2. Add salt\n3. Serve", 5);
         cookbook.addRecipe(recipe);
         recipe.addIngredient("Tomato", 10, 5, "pcs");
         recipe.addIngredient("Salt", 1, 1, "g");
@@ -188,7 +113,7 @@ public class CookbookTest {
 
     @Test
     void testCheckRecipeWithNoIngredients() {
-        Recipe recipe = new Recipe("Tomato Soup", "A delicious tomato soup", "1. Boil tomatoes\n2. Add salt\n3. Serve");
+        Recipe recipe = new Recipe("Tomato Soup", "A delicious tomato soup", "1. Boil tomatoes\n2. Add salt\n3. Serve", 5);
         cookbook.addRecipe(recipe);
         recipe.addIngredient("Tomato", 10, 5, "pcs");
         recipe.addIngredient("Salt", 1, 1, "g");
@@ -214,9 +139,9 @@ public class CookbookTest {
 
     @Test
     void testPrintAllRecipes() {
-        Recipe recipe = new Recipe("Tomato Soup", "A delicious tomato soup", "1. Boil tomatoes\n2. Add salt\n3. Serve");
+        Recipe recipe = new Recipe("Tomato Soup", "A delicious tomato soup", "1. Boil tomatoes\n2. Add salt\n3. Serve", 5);
         cookbook.addRecipe(recipe);
-        Recipe recipe2 = new Recipe("Potato Soup", "A delicious potato soup", "1. Boil potatoes\n2. Add salt\n3. Serve");
+        Recipe recipe2 = new Recipe("Potato Soup", "A delicious potato soup", "1. Boil potatoes\n2. Add salt\n3. Serve", 5);
         cookbook.addRecipe(recipe2);
         FoodStorage food = new FoodStorage();
         food.addIngredient(new Ingredient("Tomato", 10, 5, "pcs"));
@@ -228,17 +153,16 @@ public class CookbookTest {
         assertTrue(outContent.toString().contains("Potato Soup"));
     }
 
-    //TODO: Finne ut om det er best å ha negative tester og positive tester i forskjellige klasser
     @Test
     void testPrintAvailableRecipesCookbook() {
-        Recipe recipe = new Recipe("Tomato Soup", "A delicious tomato soup", "1. Boil tomatoes\n2. Add salt\n3. Serve");
+        Recipe recipe = new Recipe("Tomato Soup", "A delicious tomato soup", "1. Boil tomatoes\n2. Add salt\n3. Serve", 5);
         recipe.addIngredient("Tomato", 10, 5, "pcs");
         recipe.addIngredient("Salt", 1, 1, "g");
         recipe.addIngredient("Pepper", 1, 1, "g");
 
         cookbook.addRecipe(recipe);
 
-        Recipe recipe2 = new Recipe("Potato Soup", "A delicious potato soup", "1. Boil potatoes\n2. Add salt\n3. Serve");
+        Recipe recipe2 = new Recipe("Potato Soup", "A delicious potato soup", "1. Boil potatoes\n2. Add salt\n3. Serve", 5);
         recipe2.addIngredient("Potato", 10, 5, "pcs");
         recipe2.addIngredient("Salt", 1, 1, "g");
         recipe2.addIngredient("Pepper", 1, 1, "g");

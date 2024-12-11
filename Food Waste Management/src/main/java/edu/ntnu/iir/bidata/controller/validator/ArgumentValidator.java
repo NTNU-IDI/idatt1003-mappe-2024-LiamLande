@@ -1,7 +1,6 @@
 package edu.ntnu.iir.bidata.controller.validator;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 /**
  * The ArgumentValidator class provides static methods for validating various arguments related to ingredients, recipes, and cookbooks.
@@ -15,31 +14,6 @@ public class ArgumentValidator {
         throw new UnsupportedOperationException("Utility class");
     }
 
-    /**
-     * Validates the arguments for a cookbook.
-     *
-     * @param name        the name of the cookbook
-     * @param description the description of the cookbook
-     * @param authors     the list of authors of the cookbook
-     * @throws IllegalArgumentException if any argument is invalid
-     */
-    public static void CookbookValidator(String name, String description, ArrayList<String> authors) {
-        StringValidator(name);
-        StringValidator(description);
-        AuthorsValidator(authors);
-    }
-
-    /**
-     * Validates the list of authors.
-     *
-     * @param authors the list of authors
-     * @throws IllegalArgumentException if the authors list is null or empty
-     */
-    public static void AuthorsValidator(ArrayList<String> authors) {
-        if (authors == null || authors.isEmpty()) {
-            throw new IllegalArgumentException("Authors cannot be empty");
-        }
-    }
 
     /**
      * Validates the arguments for an ingredient, including its expiration date.
@@ -131,11 +105,12 @@ public class ArgumentValidator {
      * @param instructions the instructions for the recipe
      * @throws IllegalArgumentException if any argument is invalid
      */
-    public static void RecipeValidator(String name, String description, String instructions)
+    public static void RecipeValidator(String name, String description, String instructions, int portions)
             throws IllegalArgumentException {
         StringValidator(name);
         StringValidator(description);
         StringValidator(instructions);
+        AmountValidator(portions);
     }
 
     /**

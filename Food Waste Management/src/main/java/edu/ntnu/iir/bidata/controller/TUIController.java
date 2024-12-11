@@ -38,13 +38,7 @@ public class TUIController {
         switch (choice) {
             case 1 -> mainStorage.addIngredient(this.makeIngredient());
             case 2 -> mainStorage.findIngredient(InputValidator.readString("Name of Ingredient"));
-            case 3 -> {
-                String Name = InputValidator.readString("Name of Ingredient:");
-                mainStorage.removeIngredientAmount(
-                        Name,
-                        InputValidator.readDouble("Amount to remove:", 0)
-                );
-            }
+            case 3 -> removeAmountOrWhole();
             case 4 -> printAllIngredientsSorted();
             case 5 -> mainStorage.printExpiredIngredients();
             case 6 -> {
@@ -56,6 +50,14 @@ public class TUIController {
 
         }
         this.foodStorageMenu();
+    }
+
+    private void removeAmountOrWhole() {
+        String Name = InputValidator.readString("Name of Ingredient:");
+        mainStorage.removeIngredientAmount(
+                Name,
+                InputValidator.readDouble("Amount to remove:", 0)
+        );
     }
 
     private void printAllIngredientsSorted() {
@@ -77,9 +79,6 @@ public class TUIController {
                 foodStorageMenu();
                 break;
             case 2:
-                if (!mainCookbook.isInitialized()) {
-                    InitializeCookbook();
-                }
                 cookBookMenu();
                 break;
             default:
@@ -87,16 +86,6 @@ public class TUIController {
         }
     }
 
-    private void InitializeCookbook() {
-        PrintModel.print("Cookbook not initialized, please create a cookbook");
-        mainCookbook.init(
-                InputValidator.readString("Enter name of cookbook"),
-                InputValidator.readString("Enter description of cookbook"),
-                InputValidator.readList("Enter name of authors (seperated by commas)"));
-
-        PrintModel.print("Cookbook initialized, adding a recipe");
-        mainCookbook.addRecipe(this.makeRecipe());
-    }
 
     /**
      * Displays the cookbook menu and handles user input for various actions.
@@ -157,13 +146,14 @@ public class TUIController {
         String name = InputValidator.readString("Enter name of recipe");
         String description = InputValidator.readString("Enter description of recipe");
         String instructions = InputValidator.readString("Enter instructions of recipe");
+        int portions = InputValidator.readInt("Enter number of portions", 0);
         try {
-            ArgumentValidator.RecipeValidator(name, description, instructions);
+            ArgumentValidator.RecipeValidator(name, description, instructions, portions);
         } catch (IllegalArgumentException e) {
             PrintModel.print(e.getMessage());
             return makeRecipe();
         }
-        Recipe NewRecipe = new Recipe(name, description, instructions);
+        Recipe NewRecipe = new Recipe(name, description, instructions, portions);
 
         int choice = InputValidator.readInt(
                 "How many ingredients do you want to add to the recipe?",

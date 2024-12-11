@@ -13,6 +13,7 @@ public class Recipe {
     private final String Description;
     private final String Instructions;
     private final List<Ingredient> Ingredients;
+    private final int Portions;
 
     /**
      * Constructs a new Recipe with the specified name, description, and instructions.
@@ -21,11 +22,12 @@ public class Recipe {
      * @param description  the description of the recipe
      * @param instructions the instructions for the recipe
      */
-    public Recipe(String name, String description, String instructions) throws IllegalArgumentException {
-        ArgumentValidator.RecipeValidator(name, description, instructions);
+    public Recipe(String name, String description, String instructions, int portions) throws IllegalArgumentException {
+        ArgumentValidator.RecipeValidator(name, description, instructions, portions);
         this.Name = name;
         this.Description = description;
         this.Instructions = instructions;
+        this.Portions = portions;
         this.Ingredients = new ArrayList<>();
     }
 
@@ -56,6 +58,10 @@ public class Recipe {
         return Name;
     }
 
+    public int getPortions() {
+        return Portions;
+    }
+
     /**
      * Adds an ingredient to the recipe.
      *
@@ -74,5 +80,5 @@ public class Recipe {
     public List<Ingredient> getIngredients() {
         return Ingredients;
     }
-    
+
 }
